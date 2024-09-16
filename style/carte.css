@@ -1,0 +1,91 @@
+#map {
+    height: 100%;
+    width: 100%;
+  
+  }
+  
+  .carte {
+    padding-top: 150px;
+  }
+  
+  .map-container {
+    height: 500px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .section h2 {
+    margin-bottom: 20px;
+  }
+  
+  .section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .section p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .card {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+  .map-container {
+    height: 400px;
+  }
+  .owl-prev,
+  .owl-next {
+    color: #FFF;
+    font-size: 14px;
+    margin: 5px;
+    padding: 4px 7px;
+    background: #4D4D4D;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 8px 12px 6px 12px;
+  }
+  .owl-prev:hover,
+  .owl-next:hover {
+    background: #c0c0c0;
+    color: #FFF;
+    text-decoration: none;
+  }
+  p {
+    color: #333;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .highlight {
+    color: #000000;
+    font-weight: bold;
+  }
+  .tech {
+    color: #0055cc;
+    font-style: italic;
+  }
+  @media (max-width: 768px) {
+    .highlight,
+    .tech {
+      display: block;
+      margin: 5px 0;
+      
+    }
+  }

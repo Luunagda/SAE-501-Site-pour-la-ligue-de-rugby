@@ -1,0 +1,25 @@
+.burger, .burger:focus, .burger:active, .burger:hover{
+    border: none;
+    outline: none;
+    color: transparent;
+}
+
+.burger:hover, .nav-item:hover{
+    background-color: #909090;
+    transition: background-color .3s ease-out;
+}
+
+.nav-item:hover .nav-link{
+    color: white;
+}
+.nav-item:hover, .nav-item:focus, .nav-item:active{
+    border-radius: 0.375rem;
+}
+
+.navbar{
+    background-color: white;
+    border-radius: 0 0 30px 30px;
+}
+.navbar-brand{
+    margin-left: 20px;
+}

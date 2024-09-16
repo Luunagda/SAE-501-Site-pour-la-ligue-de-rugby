@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui sommes-nous ? - Ligue de Rugby de Nouvelle-Calédonie</title>
+
+    <!-- Bootstrap CSS pour le style et la mise en page réactive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel CSS pour le carrousel des clubs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Leaflet CSS pour la carte interactive -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+    <!-- CSS personnalisés pour styliser des sections spécifiques de la page -->
+    <link rel="stylesheet" href="style/qui-sommes-nous.css">
+    <link rel="stylesheet" href="style/css.css">
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/navbar.css">
+</head>
+
+<body>
+    <!-- Navbar-->
+    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
+            </a>
+            <button class="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="actualite.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="cartes.html">Cartes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="jumbotron p-0 text-white rounded-0 bg-dark position-relative">
+            <img src="assets/images/equipes_rugby_nc.png" alt="rugby_equipe_nc Image" class="img-fluid w-100">
+            <div class="overlay d-flex align-items-center justify-content-center">
+                <h1 class="display-4">Qui sommes-nous ?</h1>
+            </div>
+        </div>
+
+        <div class="section py-5">
+            <p>
+                Affiliée à la <strong style="color: #D32F2F;">Fédération Française de Rugby</strong>,
+                l'association présente depuis <strong style="color: #D32F2F;">1964</strong> compte environ
+                plus de <strong style="color: #388E3C;">1 100 licenciés en 2023</strong> pour une dizaine de clubs
+                présents
+                sur les <strong style="color: #7B1FA2;">3 provinces</strong>.
+                Tout au long de l'année, la Ligue met en place différentes compétitions pour les catégories
+                <strong style="color: #F57C00;">jeunes et séniors</strong> afin de développer un rugby
+                qui s'adresse à tous.
+            </p>
+        </div>
+
+        <div class="section py-5">
+            <h2 class="text-center mb-3">Nos valeurs</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        La Ligue de Rugby de Nouvelle-Calédonie incarne des valeurs essentielles :
+                        <strong style="color: #D32F2F;">Respect</strong>,
+                        <strong style="color: #1976D2;">Solidarité</strong>,
+                        <strong style="color: #388E3C;">Engagement</strong>,
+                        <strong style="color: #FBC02D;">Humilité</strong>,
+                        <strong style="color: #7B1FA2;">Esprit Sportif</strong> et
+                        <strong style="color: #F57C00;">Inclusion</strong>.
+                        Nous prônons le respect des règles, des adversaires et de soi-même.
+                        La solidarité et l'esprit d'équipe renforcent notre cohésion.
+                        L'engagement et la persévérance sont indispensables pour atteindre nos objectifs.
+                        L'humilité permet d'apprendre et de progresser. Nous valorisons l'esprit sportif,
+                        en jouant avec intégrité et fair-play. Enfin, nous promouvons l'inclusion, offrant
+                        à chacun une place, quelle que soit son origine ou condition. Ces valeurs guident
+                        notre mission et forment le socle de notre identité.
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="assets/images/ballon_rugby_ensemble.jpg" alt="Nos valeurs" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <div class="section  py-5">
+            <h2 class="text-center mb-3">Nos missions</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="assets/images/rugby_equipe_nc.jpg" alt="Nos missions" class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        La Ligue de Rugby de Nouvelle-Calédonie s'engage à accomplir plusieurs missions clés :
+                        <strong style="color: #0288D1;">Développer le Rugby</strong>,
+                        <strong style="color: #C2185B;">Former les Jeunes</strong>,
+                        <strong style="color: #7B1FA2;">Promouvoir l'Égalité</strong>,
+                        <strong style="color: #F57C00;">Encourager la Santé</strong> et
+                        <strong style="color: #388E3C;">Renforcer la Communauté</strong>.
+                        Nous nous efforçons de développer le rugby à tous les niveaux, de la base au haut niveau,
+                        en offrant des programmes de formation pour les jeunes et en promouvant l'égalité des
+                        sexes et des opportunités. Nous encourageons également un mode de vie sain et actif à
+                        travers le sport et travaillons à renforcer les liens au sein de notre communauté par
+                        des initiatives et des événements locaux. Nos missions reflètent notre engagement envers
+                        le sport et la société.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section des faits marquants -->
+        <div class="section py-5">
+            <h2 class="text-center mb-3">Faits marquants</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="assets/images/championnat_XV.jpg" class="card-img-top" alt="Fait marquant 1">
+                        <div class="card-body">
+                            <p class="card-text">Victoire historique du club A lors du championnat 2021.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="assets/images/couv_fb_rugby_nc.jpg" class="card-img-top" alt="Fait marquant 2">
+                        <div class="card-body">
+                            <p class="card-text">Participation record à la Coupe de Calédonie 2022.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="assets/images/rugby_femme_equipe_nc.jpg" class="card-img-top" alt="Fait marquant 3">
+                        <div class="card-body">
+                            <p class="card-text">Création du nouveau centre de formation en 2020.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section pour trouver un club proche avec un filtre par province -->
+        <div class="section py-5">
+            <h2 class="text-center mb-3">Trouvez le club près de chez vous</h2>
+            <div class="text-center mb-4">
+                <label for="provinceFilter">Filtrer par province:</label>
+                <select id="provinceFilter" class="form-select d-inline-block w-auto">
+                    <option value="Tous">Toutes les provinces</option>
+                    <option value="Sud">Province Sud</option>
+                    <option value="Nord">Province Nord</option>
+                    <option value="Îles Loyauté">Îles Loyauté</option>
+                </select>
+            </div>
+            <div class="map-container">
+                <div id="map" style="height: 500px; width: 100%;"></div>
+            </div>
+        </div>
+
+        <!-- Carrousel des clubs de rugby -->
+        <div class="section py-5">
+            <h2 class="text-center mb-3">Nos clubs</h2>
+            <div class="carousel-container owl-carousel owl-theme">
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/FFR-1.jpeg" alt="Club 1">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/dumbea.png" alt="Club 2">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/houps.png" alt="Club 3">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/magenta.jpeg" alt="Club 4">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/mont-dore.jpeg" alt="Club 5">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/nengone.jpeg" alt="Club 6">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/nepoui.png" alt="Club 7">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/olympique-noumea.jpeg" alt="Club 8">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/paita.jpeg" alt="Club 9">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/rugby-club-cal.jpeg" alt="Club 10">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/rugby-mont-dore.png" alt="Club 11">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/sc.jpeg" alt="Club 12">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/clubs/viking-988.jpeg" alt="Club 13">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer p-4 bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="link-light">Accueil</a></li>
+                        <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="actualite.php" class="link-light">Actualités</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="link-light">Mentions Légales</a></li>
+                        <li><a href="#" class="link-light">Politiques de confidentialité</a></li>
+                        <li><a href="#" class="link-light">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="d-flex">
+                                <a href="#" class="link-light">
+                                    <img src="assets/instagram-icon.png" alt="Instagram" class="me-3" style="width:50px;">
+                                </a>
+                                <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
+                                    <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="#" class="link-light">Contactez-nous</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery pour manipuler le DOM et gérer les interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap JS pour les composants interactifs de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Owl Carousel JS pour gérer le carrousel des clubs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <!-- Leaflet JS pour afficher la carte interactive -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <!-- Script pour initialiser Owl Carousel et Leaflet -->
+    <script>
+        $(document).ready(function () {
+            // Initialisation du carrousel des clubs
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    },
+                    1600: {
+                        items: 4
+                    },
+                    2200: {
+                        items: 5
+                    }
+                },
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                smartSpeed: 600,
+            });
+
+            var map = L.map('map').setView([-22.2711, 166.4416], 8);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Fonction pour créer une icône personnalisée pour les marqueurs des clubs
+            function createCustomIcon(club) {
+                return L.icon({
+                    iconUrl: club.image,
+                    iconSize: [40, 40],  // Taille de l'icône
+                    iconAnchor: [25, 50],  // Point de l'icône qui sera à la position du marqueur
+                    popupAnchor: [0, -50]  // Position du popup par rapport à l'icône
+                });
+            }
+
+            // Fonction pour afficher les clubs sur la carte en fonction de la province sélectionnée
+            function afficherClubs(clubs, province) {
+                map.eachLayer(function (layer) {
+                    if (layer.options && layer.options.pane === "markerPane") {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                // Ajouter les marqueurs pour les clubs de la province sélectionnée
+                clubs.forEach(function (club) {
+                    if (province === "Tous" || club.province === province) {
+                        L.marker([club.latitude, club.longitude], { icon: createCustomIcon(club) }).addTo(map)
+                            .bindPopup(`<b>${club.titre}</b><br>${club.adresse}`);
+                    }
+                });
+            }
+
+            // Récupérer les données des clubs depuis la base de données via AJAX
+            $.ajax({
+                url: 'backend/get_clubs.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        console.error('Erreur:', data.error);
+                    } else {
+                        afficherClubs(data, "Tous");
+
+                        document.getElementById('provinceFilter').addEventListener('change', function () {
+                            var province = this.value;
+                            afficherClubs(data, province);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Erreur AJAX:', error);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

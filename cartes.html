@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligue de Rugby de Nouvelle-Calédonie</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/carte.css">
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/navbar.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
+            </a>
+            <button class="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="actualite.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="cartes.html">Cartes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container pb-5">
+        <div class="carte pb-5">
+            <div class="section">
+                <h1>Joueurs calédoniens hors NC</h1>
+                <p>
+                    Bienvenue sur notre page dédiée à la <span class="highlight">cartographie des talents du rugby
+                        néo-calédonien</span> ! Cette carte
+                    interactive vous offre une vision
+                    globale de l’empreinte internationale de nos
+                    joueurs.<br><span class="highlight">Chaque marqueur sur cette carte représente un joueur de
+                        Nouvelle-Calédonie qui
+                        évolue dans un club à l'étranger.</span><br>Explorez les différents continents pour découvrir où
+                    nos athlètes
+                    portent haut les
+                    couleurs de notre île sur la scène internationale du rugby. Cette représentation vise non seulement à
+                    mettre en lumière les réussites de nos joueurs mais également à inspirer les jeunes talents locaux en
+                    leur montrant les
+                    diverses opportunités disponibles autour du globe.<br>N'hésitez pas à cliquer sur chaque marqueur pour
+                    obtenir
+                    des informations détaillées sur les joueurs, incluant leur club actuel, leur position et leur parcours.
+                </p>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer p-4 bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="link-light">Accueil</a></li>
+                        <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="actualite.php" class="link-light">Actualités</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="link-light">Mentions Légales</a></li>
+                        <li><a href="#" class="link-light">Politiques de confidentialité</a></li>
+                        <li><a href="#" class="link-light">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="d-flex">
+                                <a href="#" class="link-light">
+                                    <img src="assets/instagram-icon.png" alt="Instagram" class="me-3" style="width:50px;">
+                                </a>
+                                <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
+                                    <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="#" class="link-light">Contactez-nous</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+        // Initialisation de la carte avec Leaflet
+        var map = L.map('map').setView([-22.2711, 166.4416], 8);  
+
+        // Ajoute les tuiles OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    </script>
+</body>
+
+</html>

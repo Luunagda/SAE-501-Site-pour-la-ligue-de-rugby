@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+footer {
+    background-color: #4D4D4D;
+    color: white;
+    margin-top: 2rem;
+}
+.footer-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.link-light {
+    color: white;
+    text-decoration: none;
+    transition: text-decoration 0.3s ease;
+}
+.link-light:hover {
+    text-decoration: underline;
+}

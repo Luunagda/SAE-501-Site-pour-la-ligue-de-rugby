@@ -1,0 +1,121 @@
+[
+    {
+        "image": "assets/clubs/crec.jpeg",
+        "titre": "Club de Rugby Educatif et Citoyen",
+        "adresse": "123 Rue de la Liberté, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.271,
+        "longitude": 166.441
+    },
+    {
+        "image": "assets/clubs/dumbea.png",
+        "titre": "Union Rugby Club de Dumbéa",
+        "adresse": "456 Avenue des Sports, Dumbéa, Nouvelle-Calédonie",
+        "latitude": -22.142,
+        "longitude": 166.473
+    },
+    {
+        "image": "assets/clubs/sc.jpeg",
+        "titre": "Association Stade Calédonien",
+        "adresse": "789 Boulevard du Stade, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.275,
+        "longitude": 166.454
+    },
+    {
+        "image": "assets/clubs/mont-dore.jpeg",
+        "titre": "Rugby Club de Mont Dore",
+        "adresse": "1011 Rue du Mont Dore, Mont-Dore, Nouvelle-Calédonie",
+        "latitude": -22.305,
+        "longitude": 166.508
+    },
+    {
+        "image": "assets/clubs/viking-988.jpeg",
+        "titre": "Vikins 988",
+        "adresse": "1213 Avenue des Vikings, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.269,
+        "longitude": 166.457
+    },
+    {
+        "image": "assets/clubs/olympique-noumea.jpeg",
+        "titre": "Olympique de Nouméa",
+        "adresse": "1415 Rue de l'Olympique, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.282,
+        "longitude": 166.460
+    },
+    {
+        "image": "assets/clubs/paita.jpeg",
+        "titre": "Le Petit Train Section Rugby",
+        "adresse": "1617 Rue de Paita, Paita, Nouvelle-Calédonie",
+        "latitude": -22.128,
+        "longitude": 166.362
+    },
+    {
+        "image": "assets/clubs/rugby-club-cal.jpeg",
+        "titre": "Rugby Club Calédonien",
+        "adresse": "1819 Boulevard Calédonien, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.270,
+        "longitude": 166.442
+    },
+    {
+        "image": "assets/clubs/magenta.jpeg",
+        "titre": "Association Sportive de Magenta",
+        "adresse": "2021 Avenue de Magenta, Nouméa, Nouvelle-Calédonie",
+        "latitude": -22.271,
+        "longitude": 166.452
+    },
+    {
+        "image": "assets/clubs/kunie.png",
+        "titre": "Association Sportive Kunie",
+        "adresse": "2223 Rue de Kunie, Île des Pins, Nouvelle-Calédonie",
+        "latitude": -22.658,
+        "longitude": 167.446
+    },
+    {
+        "image": "assets/clubs/bourail.jpeg",
+        "titre": "Comite Sportif Bouraillais",
+        "adresse": "2425 Rue de Bourail, Bourail, Nouvelle-Calédonie",
+        "latitude": -21.566,
+        "longitude": 165.494
+    },
+    {
+        "image": "assets/clubs/nepoui.png",
+        "titre": "Association Omnisports Nepoui",
+        "adresse": "2627 Rue de Nepoui, Poya, Nouvelle-Calédonie",
+        "latitude": -21.345,
+        "longitude": 165.028
+    },
+    {
+        "image": "assets/clubs/crevette.png",
+        "titre": "Crevettes Musclées Nord Rugby",
+        "adresse": "2829 Rue des Crevettes, Koumac, Nouvelle-Calédonie",
+        "latitude": -20.567,
+        "longitude": 164.281
+    },
+    {
+        "image": "assets/clubs/FFR-1.jpeg",
+        "titre": "Etoiles sportive de Kaawiipaa",
+        "adresse": "3031 Rue de Kaawiipaa, Houaïlou, Nouvelle-Calédonie",
+        "latitude": -21.276,
+        "longitude": 165.644
+    },
+    {
+        "image": "assets/clubs/houps.png",
+        "titre": "Les Houps Club de Rugby de Poindimie",
+        "adresse": "3233 Rue de Poindimie, Poindimie, Nouvelle-Calédonie",
+        "latitude": -20.925,
+        "longitude": 165.332
+    },
+    {
+        "image": "assets/clubs/nengone.jpeg",
+        "titre": "Nengone Ovalie Rugby Ensemble Saisissons l’Avenir",
+        "adresse": "3435 Rue de Nengone, Maré, Nouvelle-Calédonie",
+        "latitude": -21.530,
+        "longitude": 167.880
+    },
+    {
+        "image": "assets/clubs/FFR-1.jpeg",
+        "titre": "NE Drehu",
+        "adresse": "3637 Rue de Drehu, Lifou, Nouvelle-Calédonie",
+        "latitude": -20.925,
+        "longitude": 167.261
+    }
+]
