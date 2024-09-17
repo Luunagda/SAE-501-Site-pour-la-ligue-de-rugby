@@ -76,8 +76,11 @@
 
 }
 
-.item a img
-{
-    width: 30vw;
-    height: 20vh;
+
+.owl-carousel .item {
+    height: 300px; /* Adjust the height to your preference */
+}
+
+.owl-carousel .item img {
+    height: 100%; /* Ensures the image stretches to the container */
 }
