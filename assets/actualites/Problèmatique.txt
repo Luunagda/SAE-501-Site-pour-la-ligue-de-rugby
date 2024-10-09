@@ -1,0 +1,3 @@
+Comment déployer,adapter et gérer un ERP web pour qu'il corresponde aux besoins d'une entreprise ? +
+
+Quelles sont les différentes actions/opérations à mener sur un ERP web pour répondre aux besoins d'une entreprise ?

@@ -1,7 +1,6 @@
 .img-container{
     width: 100%;
     height: 500px;
-    margin-bottom: 2rem;
 }
 
 .header, .clubs{
@@ -30,23 +29,6 @@
     transition: background-color .3s ease-out;
 }
 
-.owl-prev, .owl-next{
-    color: #FFF;
-    font-size: 14px;
-    margin: 5px;
-    padding: 4px 7px;
-    background: #4D4D4D;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 3px;
-    padding: 8px 12px 6px 12px;
-}
-
-.owl-prev:hover, .owl-next:hover{
-    background: #c0c0c0;
-    color: #FFF;
-    text-decoration: none;
-}
 
 .carousel-club-title{
     display: flex;
@@ -76,11 +58,60 @@
 
 }
 
-
 .owl-carousel .item {
-    height: 300px; /* Adjust the height to your preference */
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    flex-direction: column; /* Empilement vertical */
+    width: 200px;
+    padding: 10px; /* Optionnel : ajout de padding */
+    box-sizing: border-box;
+    text-align: center; /* Centrer le texte si nécessaire */
+    height: 300px; /* Définir une hauteur fixe pour aligner les images verticalement */
 }
 
 .owl-carousel .item img {
-    height: 100%; /* Ensures the image stretches to the container */
+    max-width: 100%;
+    max-height: 100%; /* Limite la taille de l'image à la hauteur définie */
+    object-fit: contain; /* Contient l'image dans l'espace sans la découper */
+    display: block;
 }
+
+.last-actualite {
+    background-color: #a52d37; /* Fond rouge */
+    border: 3px solid #a52d37; /* Bordure rouge */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    box-shadow: 8px 8px 8px 16px rgba(0, 0, 0, 0.1); /* Légère ombre pour le relief */
+}
+
+.last-actualite h2,
+.last-actualite h3,
+.last-actualite p {
+    color: white; /* Rendre le texte en blanc */
+}
+
+.last-actualite a.btn {
+    background-color: white; /* Bouton en blanc avec texte rouge */
+    color: #a52d37; /* Texte du bouton en rouge */
+    border: 1px solid white;
+}
+
+.last-actualite a.btn:hover {
+    background-color: #4D4D4D; /* Fond gris foncé au hover */
+    color: white; /* Texte en blanc au hover */
+    border: 1px solid #4D4D4D;
+
+}
+
+.last-actualite img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1); /* Légère ombre pour le relief */
+
+}
+

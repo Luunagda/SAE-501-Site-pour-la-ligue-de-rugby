@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
-<a href="../index.html"><button type="submit" class="btn btn-primary">Retour</button></a>
+<a href="../index.php"><button type="submit" class="btn btn-primary">Retour</button></a>
     <div class="container mt-5">
         <h2 style="text-align:center;">Connexion</h2>
         <?php if (!empty($error_message)): ?>
