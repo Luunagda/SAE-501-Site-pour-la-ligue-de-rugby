@@ -28,7 +28,7 @@
     <!-- Navbar-->
     <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
             </a>
             <button class="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,17 +37,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="index.html">Accueil</a>
+                        <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous ?</a>
+                        <a class="nav-link active" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="actualite.php">Actualités</a>
+                        <a class="nav-link" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="cartes.html">Cartes</a>
+                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
+                    
                 </ul>
             </div>
         </div>
@@ -74,8 +75,29 @@
             </p>
         </div>
 
+        <!-- Section Nos atouts -->
         <div class="section py-5">
-            <h2 class="text-center mb-3">Nos valeurs</h2>
+            <h2 class="text-center mb-3">Nos atouts</h2>
+            <div class="row text-center align-items-center justify-content-center">
+                <div class="col-4 col-md-2">
+                    <img src="assets/icons/force.png" alt="Force" class="img-fluid atout-icon">
+                    <p>Valeur</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <img src="assets/icons/medaille.png" alt="Médaille" class="img-fluid atout-icon">
+                    <p>Valeur</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <img src="assets/icons/partenaire.png" alt="Partenaire" class="img-fluid atout-icon">
+                    <p>Valeur</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="section py-5">
+            <h2 class="text-left mb-3">Nos valeurs</h2>
             <div class="row">
                 <div class="col-md-8">
                     <p>
@@ -102,7 +124,7 @@
         </div>
 
         <div class="section  py-5">
-            <h2 class="text-center mb-3">Nos missions</h2>
+            <h2 class="text-left mb-3">Nos missions</h2>
             <div class="row">
                 <div class="col-md-4 text-center">
                     <img src="assets/images/rugby_equipe_nc.jpg" alt="Nos missions" class="img-fluid">
@@ -126,136 +148,90 @@
             </div>
         </div>
 
-        <!-- Section des faits marquants -->
-        <div class="section py-5">
-            <h2 class="text-center mb-3">Faits marquants</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="assets/images/championnat_XV.jpg" class="card-img-top" alt="Fait marquant 1">
-                        <div class="card-body">
-                            <p class="card-text">Victoire historique du club A lors du championnat 2021.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="assets/images/couv_fb_rugby_nc.jpg" class="card-img-top" alt="Fait marquant 2">
-                        <div class="card-body">
-                            <p class="card-text">Participation record à la Coupe de Calédonie 2022.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="assets/images/rugby_femme_equipe_nc.jpg" class="card-img-top" alt="Fait marquant 3">
-                        <div class="card-body">
-                            <p class="card-text">Création du nouveau centre de formation en 2020.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<script>
+    // Fonction pour ouvrir la lightbox
+function openLightbox(imageSrc, captionText) {
+    document.getElementById("lightbox").style.display = "block";
+    document.getElementById("lightboxImage").src = imageSrc;
+    document.getElementById("caption").innerHTML = captionText;
+}
+
+// Fonction pour fermer la lightbox
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+
+</script>
+<!-- Section des faits marquants -->
+<div class="section" style="margin-top:20px;margin-bottom:5%;">
+    <h2 class="text-center mb-3">Faits marquants</h2>
+    <div class="highlight-row">
+        <!-- Structure de la Lightbox -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <span class="close">&times;</span>
+            <img class="lightbox-content" id="lightboxImage">
+            <div id="caption"></div>
         </div>
 
-        <!-- Section pour trouver un club proche avec un filtre par province -->
-        <div class="section py-5">
-            <h2 class="text-center mb-3">Trouvez le club près de chez vous</h2>
-            <div class="text-center mb-4">
-                <label for="provinceFilter">Filtrer par province:</label>
-                <select id="provinceFilter" class="form-select d-inline-block w-auto">
-                    <option value="Tous">Toutes les provinces</option>
-                    <option value="Sud">Province Sud</option>
-                    <option value="Nord">Province Nord</option>
-                    <option value="Îles Loyauté">Îles Loyauté</option>
-                </select>
-            </div>
+        <!-- Vos images -->
+        <div class="highlight-item" onclick="openLightbox('assets/images/couv_fb_rugby_nc.jpg', 'Participation record à la Coupe de Calédonie 2022.')">
+            <img src="assets/images/couv_fb_rugby_nc.jpg" alt="Fait marquant 2" class="highlight-image">
+            <p class="highlight-text">Participation record à la Coupe de Calédonie 2022.</p>
+        </div>
+        <div class="highlight-item" onclick="openLightbox('assets/images/championnat_XV.jpg', 'Victoire historique du club A lors du championnat 2021.')">
+            <img src="assets/images/championnat_XV.jpg" alt="Fait marquant 1" class="highlight-image">
+            <p class="highlight-text">Victoire historique du club A lors du championnat 2021.</p>
+        </div>
+        <div class="highlight-item" onclick="openLightbox('assets/images/rugby_femme_equipe_nc.jpg', 'Création du nouveau centre de formation en 2020.')">
+            <img src="assets/images/rugby_femme_equipe_nc.jpg" alt="Fait marquant 3" class="highlight-image">
+            <p class="highlight-text">Création du nouveau centre de formation en 2020.</p>
+        </div>
+
+    </div>
+</div>
             <div class="map-container">
                 <div id="map" style="height: 500px; width: 100%;"></div>
             </div>
         </div>
 
-        <!-- Carrousel des clubs de rugby -->
-        <div class="section py-5">
-            <h2 class="text-center mb-3">Nos clubs</h2>
-            <div class="carousel-container owl-carousel owl-theme">
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/FFR-1.jpeg" alt="Club 1">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/dumbea.png" alt="Club 2">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/houps.png" alt="Club 3">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/magenta.jpeg" alt="Club 4">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/mont-dore.jpeg" alt="Club 5">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/nengone.jpeg" alt="Club 6">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/nepoui.png" alt="Club 7">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/olympique-noumea.jpeg" alt="Club 8">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/paita.jpeg" alt="Club 9">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/rugby-club-cal.jpeg" alt="Club 10">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/rugby-mont-dore.png" alt="Club 11">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/sc.jpeg" alt="Club 12">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="assets/clubs/viking-988.jpeg" alt="Club 13">
-                    </a>
-                </div>
+        <?php
+        // Connexion à la base de données
+        require 'backend/connexion.php'; // Assurez-vous que ce fichier contient la connexion PDO à votre base de données
+
+        // Requête pour récupérer les clubs
+        $stmt = $pdo->query('SELECT * FROM club');
+        $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+
+    <!-- Clubs Section with Owl Carousel -->
+    <div class="clubs py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Nos clubs</h2>
+            </div>
+            <div class="owl-carousel owl-theme">
+                <?php foreach ($clubs as $club): ?>
+                    <div class="item">
+                        <a href="<?= !empty($club['lien']) ? (strpos($club['lien'], 'http') === 0 ? htmlspecialchars($club['lien']) : 'https://' . htmlspecialchars($club['lien'])) : '#'; ?>">
+                            <img src="<?= !empty($club['image']) ? htmlspecialchars($club['image']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($club['nom']); ?>">
+                        </a>
+                    </div>
+
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
+        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
-                        <li><a href="actualite.php" class="link-light">Actualités</a></li>
+                        <li><a href="resultat.php" class="link-light">Résultats</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -298,33 +274,28 @@
 
     <!-- Script pour initialiser Owl Carousel et Leaflet -->
     <script>
-        $(document).ready(function () {
-            // Initialisation du carrousel des clubs
-            $('.owl-carousel').owlCarousel({
+        $(document).ready(function(){
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
                 loop: true,
                 margin: 10,
-                nav: true,
+                nav: false,
                 responsive: {
                     0: {
-                        items: 1
-                    },
-                    600: {
                         items: 2
                     },
-                    1000: {
+                    600: {
                         items: 3
                     },
-                    1600: {
-                        items: 4
-                    },
-                    2200: {
+                    1000: {
                         items: 5
                     }
                 },
                 autoplay: true,
-                autoplayTimeout: 3000,
+                autoplayTimeout: 2000,
                 autoplayHoverPause: true,
                 smartSpeed: 600,
+                slideBy: 1,
             });
 
             var map = L.map('map').setView([-22.2711, 166.4416], 8);

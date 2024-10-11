@@ -24,6 +24,25 @@ if (!$user || $user['DroitClub'] != 1) {
     exit();
 }
 
+// Fonction pour valider l'extension et le type MIME d'une image
+function validateImage($image) {
+    // Vérifier l'extension
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $fileExtension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($fileExtension, $allowedExtensions)) {
+        return false;
+    }
+
+    // Vérifier la signature MIME
+    $mimeType = mime_content_type($image['tmp_name']);
+    if (strpos($mimeType, 'image/') !== 0) {
+        return false;
+    }
+
+    return true;
+}
+
 // Si le formulaire d'ajout ou de mise à jour de club a été soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'add') {
@@ -36,14 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 
         // Gérer l'upload de l'image
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/clubs/';
-            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-            
-            // Déplacer le fichier uploadé vers le dossier cible
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                $image = 'assets/clubs/' . basename($_FILES['image']['name']); // Enregistrer le chemin relatif correct
+            if (validateImage($_FILES['image'])) {
+                $uploadDir = '../assets/clubs/';
+                $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+
+                // Déplacer le fichier uploadé vers le dossier cible
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                    $image = 'assets/clubs/' . basename($_FILES['image']['name']); // Enregistrer le chemin relatif correct
+                } else {
+                    echo "Échec de l'upload de l'image.";
+                    exit();
+                }
             } else {
-                echo "Échec de l'upload de l'image.";
+                echo "Le fichier n'est pas une image valide. Format attendu : jpg', 'jpeg', 'png', 'gif'";
                 exit();
             }
         } else {
@@ -79,14 +103,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 
         // Gérer l'upload de l'image uniquement si un nouveau fichier est fourni
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/clubs/';
-            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-            
-            // Déplacer le fichier uploadé vers le dossier cible
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                $image = 'assets/clubs/' . basename($_FILES['image']['name']); // Enregistrer le chemin relatif correct
+            if (validateImage($_FILES['image'])) {
+                $uploadDir = '../assets/clubs/';
+                $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+
+                // Déplacer le fichier uploadé vers le dossier cible
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                    $image = 'assets/clubs/' . basename($_FILES['image']['name']); // Enregistrer le chemin relatif correct
+                } else {
+                    echo "Échec de l'upload de l'image.";
+                    exit();
+                }
             } else {
-                echo "Échec de l'upload de l'image.";
+                echo "Le fichier n'est pas une image valide.";
                 exit();
             }
         } else {
@@ -128,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -229,6 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     </nav>
     <!--FIN Navbar-->
 
+    
     <div class="container mt-5">
         <h2 style="text-align:center;">Gestion des Clubs</h2>
         

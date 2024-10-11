@@ -1,0 +1,106 @@
+body
+{
+    background-color: #a52d37; /* Fond rouge */
+
+}
+/* Ciblage plus précis pour contourner les classes Bootstrap */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #fff; /* Changer la couleur du texte pour contraster avec le fond */
+}
+
+.card-text {
+    color: #fff; /* Texte en blanc pour contraster avec le fond rouge */
+}
+
+.card img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Forcer la couleur des boutons sur les cartes */
+.btn {
+    background-color: #fff;
+    color: #a52d37;
+    border: 1px solid #fff;
+}
+
+.btn:hover {
+    background-color: #4D4D4D;
+    color: #fff;
+}
+        body {
+            background-color: #f7f7f7;
+        }
+
+        /* Style des cartes */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        .card-title:hover {
+            color: #E22B39;
+        }
+
+        .score-info {
+            font-weight: bold;
+            font-size: 0.9rem; /* Réduction de la taille de la police du score */
+            margin-bottom: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Supprimer la décoration de lien pour toute la carte */
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
