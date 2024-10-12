@@ -28,7 +28,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
@@ -42,39 +42,42 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <body>
     <!-- Navbar -->
-<nav class="navbar fixed-top navbar-expand-sm shadow-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">
-            <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie">
-        </a>
-        <button class="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item px-2">
-                    <a class="nav-link active" href="index.php">Accueil</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link " href="resultat.php">Résultats</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
-                </li>
-            </ul>
+    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">
+                <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie">
+            </a>
+            <button class="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" href="index.php">Accueil</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link " href="resultat.php">Résultats</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link " href="actualites.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
 
 
 
 
-    
+
     <!-- Header Section -->
     <div class="header pb-5">
         <div class="img-container">
@@ -83,7 +86,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <!-- Section "Notre dernière actualité" -->
         <div class="last-actualite py-5">
-        <div class="container">
+            <div class="container">
                 <h2 class="lastresult">Notre dernier résultat</h2>
                 <?php if ($lastActualite): ?>
                     <div class="row">
@@ -116,24 +119,24 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
                 <a href="resultat.php" class="btn btn-secondary">Voir les résultats</a>
             </div>
         </div>
-        
+
     </div>
 
     <!-- Actualités Section -->
     <div class="container">
-            <h2>Qui sommes-nous ?</h2>
-            <p>
-                La ligue de rugby est une association affiliée à la Fédération Française de Rugby. Elle est présente depuis 1964 et compte environ plus de 1 100 licenciés en 2023 pour une dizaine de clubs présents sur les 3 provinces.
-            </p>
-            <div class="btn-container">
-                <a href="qui-sommes-nous.html" class="btn btn-primary">En savoir +</a>
-            </div>
+        <h2>Qui sommes-nous ?</h2>
+        <p>
+            La ligue de rugby est une association affiliée à la Fédération Française de Rugby. Elle est présente depuis 1964 et compte environ plus de 1 100 licenciés en 2023 pour une dizaine de clubs présents sur les 3 provinces.
+        </p>
+        <div class="btn-container">
+            <a href="qui-sommes-nous.html" class="btn btn-primary">En savoir +</a>
         </div>
+    </div>
 
     <?php
-        // Requête pour récupérer les clubs
-        $stmt = $pdo->query('SELECT * FROM club');
-        $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Requête pour récupérer les clubs
+    $stmt = $pdo->query('SELECT * FROM club');
+    $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <!-- Clubs Section with Owl Carousel -->
@@ -155,11 +158,13 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    
+
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
@@ -167,6 +172,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
+                        <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -206,7 +212,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
 
     <!-- Script pour initialiser Owl Carousel -->
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var owl = $('.owl-carousel');
             owl.owlCarousel({
                 loop: true,
