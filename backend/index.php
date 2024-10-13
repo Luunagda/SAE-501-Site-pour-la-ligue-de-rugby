@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Récupérer les droits de l'utilisateur depuis la base de données
-$stmt = $pdo->prepare('SELECT DroitClub, DroitUser, DroitActualite, DroitScore FROM users WHERE id = :id');
+$stmt = $pdo->prepare('SELECT DroitClub, DroitUser, DroitActualite, DroitScore, DroitPartenaire FROM users WHERE id = :id');
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -81,9 +81,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <?php endif; ?>
                     <?php if ($user['DroitClub'] == 1): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="addclub.php">Gestion des Clubs</li>
+                            <a class="nav-link" href="addclub.php">Gestion des Clubs</a>
+                        </li>
                     <?php endif; ?>
-
+                    <?php if ($user['DroitPartenaire'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addpartenaire.php">Gestion des Partenaires</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item">
@@ -144,6 +149,18 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                         <h5 class="card-title">Gestion des Utilisateurs</h5>
                         <p class="card-text">Gérez les utilisateurs et leurs droits.</p>
                         <a href="addusers.php" class="btn btn-primary">Gérer les Utilisateurs</a>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($user['DroitPartenaire'] == 1): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestion des Partenaires</h5>
+                        <p class="card-text">Gérez les partenaires de la ligue.</p>
+                        <a href="addpartenaire.php" class="btn btn-primary">Gérer les Partenaires</a>
                     </div>
                 </div>
             </div>

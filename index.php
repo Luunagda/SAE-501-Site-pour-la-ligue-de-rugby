@@ -155,6 +155,29 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <?php
+        // Requête pour récupérer les clubs
+        $stmt = $pdo->query('SELECT * FROM partenaire');
+        $partenaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+
+    <!-- Clubs Section with Owl Carousel -->
+    <div class="clubs py-5">
+        <div class="container ">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Nos Partenaires</h2>
+            </div>
+            <div class="owl-carousel owl-theme">
+                <?php foreach ($partenaires as $partenaire): ?>
+                    <div class="item">
+                        <img src="<?= !empty($partenaire['img']) ? htmlspecialchars($partenaire['img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($partenaire['nom']); ?>">
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+
     
 
     <!-- Footer -->

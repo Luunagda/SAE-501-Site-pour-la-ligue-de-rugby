@@ -13,9 +13,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupérer les droits de l'utilisateur depuis la base de données
-$stmt = $pdo->prepare('SELECT DroitClub, DroitUser, DroitActualite, DroitScore FROM users WHERE id = :id');
+$stmt = $pdo->prepare('SELECT DroitPartenaire, DroitUser, DroitScore, DroitActualite, DroitClub FROM users WHERE id = :id');
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 // Vérifier si l'utilisateur a les droits pour gérer les clubs
 if (!$user || $user['DroitClub'] != 1) {
@@ -245,9 +246,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                     <?php endif; ?>
                     <?php if ($user['DroitClub'] == 1): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="addclub.php">Gestion des Clubs</li>
+                            <a class="nav-link" href="addclub.php">Gestion des Clubs</a>
+                        </li>
                     <?php endif; ?>
-
+                    <?php if ($user['DroitPartenaire'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addpartenaire.php">Gestion des Partenaires</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item">
@@ -257,7 +263,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
             </div>
         </div>
     </nav>
-    <!--FIN Navbar-->
 
     
     <div class="container mt-5">
