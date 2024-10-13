@@ -115,6 +115,9 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link " href="actualites.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
                     
@@ -181,6 +184,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
+                        <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
