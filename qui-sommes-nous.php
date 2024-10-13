@@ -26,7 +26,7 @@
 
 <body>
     <!-- Navbar-->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
@@ -41,6 +41,9 @@
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link active" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="resultat.php">Résultats</a>
@@ -77,28 +80,22 @@
 
         <!-- Section Nos atouts -->
         <div class="section py-5">
-            <h2 class="text-center mb-3">Nos atouts</h2>
+            <h2 class="text-center mb-3">Nos valeurs</h2>
             <div class="row text-center align-items-center justify-content-center">
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/force.png" alt="Force" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Respect</p>
                 </div>
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/medaille.png" alt="Médaille" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Inclusion</p>
                 </div>
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/partenaire.png" alt="Partenaire" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Solidarité</p>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="section py-5">
-            <h2 class="text-left mb-3">Nos valeurs</h2>
-            <div class="row">
+            <div class="row mt-5 pt-5">
                 <div class="col-md-8">
                     <p>
                         La Ligue de Rugby de Nouvelle-Calédonie incarne des valeurs essentielles :
