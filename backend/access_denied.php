@@ -10,7 +10,7 @@
     <div class="container text-center mt-5">
         <h1 class="text-danger">Accès refusé</h1>
         <p class="mt-3">Vous n'avez pas les droits nécessaires pour accéder à cet espace.</p>
-        <a href="../index.html" class="btn btn-primary mt-4">Retour à l'accueil</a>
+        <a href="../index.php" class="btn btn-primary mt-4">Retour à l'accueil</a>
     </div>
 </body>
 </html>

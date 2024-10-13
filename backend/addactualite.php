@@ -16,7 +16,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Vérifier si l'utilisateur a les droits pour gérer les actualités
 if (!$user || $user['DroitActualite'] != 1) {
-    // Rediriger vers une page d'erreur ou d'accès refusé si l'utilisateur n'a pas les droits
     header('Location: access_denied.php');
     exit();
 }
@@ -26,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $titre = $_POST['titre'];
         $description = $_POST['description'];
         $contenu = $_POST['contenu'];
-        $fk_score = $_POST['fk_score'];
-        $img = '';
-        $active = 0; 
+        $fk_score = empty($_POST['fk_score']) ? NULL : $_POST['fk_score'];
+        $img = NULL;
+        $active = 0;
 
-        // Gérer l'upload de l'image
+        // Gérer l'upload de l'image seulement si un fichier est sélectionné
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../assets/actualites/';
             $uploadFile = $uploadDir . basename($_FILES['img']['name']);
@@ -41,12 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
                 echo "Échec de l'upload de l'image.";
                 exit();
             }
-        } else {
-            echo "Veuillez sélectionner une image à uploader.";
-            exit();
         }
 
-        // Insertion des données
+        // Insertion des données, img sera NULL si aucune image n'a été uploadée
         $stmt = $pdo->prepare('INSERT INTO actualite (titre, description, contenu, fk_score, img, active) 
                                VALUES (:titre, :description, :contenu, :fk_score, :img, :active)');
         $stmt->execute([
@@ -58,18 +54,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'active' => $active
         ]);
 
-        // Rediriger après l'ajout
         header('Location: addactualite.php');
         exit();
+
     } elseif ($_POST['action'] === 'update') {
         $id = $_POST['id'];
         $titre = $_POST['titre'];
         $description = $_POST['description'];
         $contenu = $_POST['contenu'];
         $fk_score = $_POST['fk_score'];
-        $existing_img = $_POST['existing_img'];
+        $existing_img = $_POST['existing_img']; // L'image existante
         $active = isset($_POST['active']) ? 1 : 0;
 
+        // Si une nouvelle image est uploadée, on remplace l'ancienne
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../assets/actualites/';
             $uploadFile = $uploadDir . basename($_FILES['img']['name']);
@@ -81,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
                 exit();
             }
         } else {
+            // Si aucune nouvelle image n'est uploadée, conserver l'ancienne
             $img = $existing_img;
         }
 
@@ -94,18 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'description' => $description,
             'contenu' => $contenu,
             'fk_score' => $fk_score,
-            'img' => $img,
+            'img' => $img, // Utilisation de la nouvelle ou de l'image existante
             'active' => $active,
             'id' => $id
         ]);
 
-        // Rediriger après la mise à jour
         header('Location: addactualite.php');
         exit();
     }
 }
 
-// Si le formulaire de suppression a été soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
     $id = $_POST['id'];
 
@@ -113,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     $stmt = $pdo->prepare('DELETE FROM actualite WHERE id = :id');
     $stmt->execute(['id' => $id]);
 
-    // Rediriger après la suppression
     header('Location: addactualite.php');
     exit();
 }
@@ -136,10 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
             color: red;
             cursor: pointer;
         }
+
         .edit-icon {
             color: blue;
             cursor: pointer;
         }
+
         .dropzone {
             width: 100%;
             height: 200px;
@@ -152,24 +149,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
             cursor: pointer;
             margin-bottom: 20px;
         }
+
         .navbar-nav-centered {
             display: flex;
             justify-content: center;
             flex-grow: 1;
             align-items: center;
         }
+
         .navbar-nav-centered .nav-item {
             margin-right: 10px;
         }
+
         .navbar-nav-centered .nav-link {
             padding-top: 10px;
             padding-bottom: 10px;
             margin: 0;
         }
+
         .navbar-nav-right {
             margin-left: auto;
             align-items: center;
         }
+
         .checkbox-disabled {
             pointer-events: none;
             opacity: 0.6;
@@ -212,7 +214,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                             <a class="nav-link" href="addclub.php">Gestion des Clubs</a>
                         </li>
                     <?php endif; ?>
-
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item">
@@ -246,25 +247,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                 <div class="mb-3">
                     <label for="fk_score" class="form-label">Score associé</label>
                     <select class="form-control" id="fk_score" name="fk_score">
+                        <option value="">-- Aucun score associé --</option>
                         <?php
                         $stmt = $pdo->query('SELECT s.id, cw.nom AS equipeWinner, cl.nom AS equipeLooser, s.date_match 
-                                             FROM score s
-                                             JOIN club cw ON s.fk_equipeWinner = cw.id
-                                             JOIN club cl ON s.fk_equipeLooser = cl.id
-                                             ORDER BY s.date_match DESC');
+                                            FROM score s
+                                            JOIN club cw ON s.fk_equipeWinner = cw.id
+                                            JOIN club cl ON s.fk_equipeLooser = cl.id
+                                            ORDER BY s.date_match DESC');
                         while ($score = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo '<option value="' . htmlspecialchars($score['id']) . '">' . htmlspecialchars($score['equipeWinner']) . ' vs ' . htmlspecialchars($score['equipeLooser']) . ' - ' . htmlspecialchars($score['date_match']) . '</option>';
                         }
                         ?>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="img" class="form-label">Image</label>
                     <div class="dropzone" id="dropzone">
                         Déposez l'image ici ou cliquez pour sélectionner un fichier.
                     </div>
-                    <input type="file" class="form-control d-none" id="img" name="img" required>
+                    <input type="file" class="form-control" id="img" name="img" accept="image/*" style="opacity: 0; position: absolute; left: -9999px;">
                 </div>
+
                 <button type="submit" class="btn btn-success">Ajouter l'actualité</button>
             </form>
         </div>
@@ -300,58 +304,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                     $equipeLooser = htmlspecialchars($row['equipeLooser'] ?? '');
                     $img = htmlspecialchars($row['img'] ?? '');
                     $active = htmlspecialchars($row['active'] ?? 0);
+                    $fk_score = htmlspecialchars($row['fk_score'] ?? '');
 
-                    echo '<tr>';
-                    echo '<td>' . $titre . '</td>';
-                    echo '<td>' . $description . '</td>';
-                    echo '<td>' . $contenu . '</td>';
-                    echo '<td>' . $equipeWinner . ' vs ' . $equipeLooser . '</td>';
-                    echo '<td><img src="../' . $img . '" alt="' . $titre . '" style="width:100px;"></td>';
-                    echo '<td>';
-                    echo '<form method="POST" action="addactualite.php" style="display:inline-block;">';
-                    echo '<input type="hidden" name="action" value="update">';
-                    echo '<input type="hidden" name="id" value="' . $id . '">';
-                    echo '<input type="hidden" name="titre" value="' . $titre . '">';
-                    echo '<input type="hidden" name="description" value="' . $description . '">';
-                    echo '<input type="hidden" name="contenu" value="' . $contenu . '">';
-                    echo '<input type="hidden" name="fk_score" value="' . $row['fk_score'] . '">';
-                    echo '<input type="hidden" name="existing_img" value="' . $img . '">';
-                    echo '<input type="checkbox" name="active" value="1" class="checkbox-disabled" ' . ($active ? 'checked' : '') . ' onchange="this.form.submit()" disabled>';
-                    echo '</form>';
-                    echo '</td>';
-                    echo '<td>';
-                    echo '<button class="btn btn-link edit-icon" onclick="enableEditMode(' . $id . ')"><i class="bi bi-pencil"></i></button>';
-                    echo '<form method="POST" action="addactualite.php" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cette actualité ?\');" style="display:inline-block;">';
-                    echo '<input type="hidden" name="action" value="delete">';
-                    echo '<input type="hidden" name="id" value="' . $id . '">';
-                    echo '<button type="submit" class="btn btn-link delete-icon"><i class="bi bi-trash-fill"></i></button>';
-                    echo '</form>';
-                    echo '</td>';
-                    echo '</tr>';
-
-                    // Ligne d'édition
-                    echo '<tr id="edit-row-' . $id . '" style="display: none;">';
+                    echo '<tr id="row-' . $id . '">';
                     echo '<form method="POST" action="addactualite.php" enctype="multipart/form-data">';
                     echo '<input type="hidden" name="action" value="update">';
                     echo '<input type="hidden" name="id" value="' . $id . '">';
-                    echo '<td><input type="text" class="form-control" name="titre" value="' . $titre . '" required></td>';
-                    echo '<td><textarea class="form-control" name="description" required>' . $description . '</textarea></td>';
-                    echo '<td><textarea class="form-control" name="contenu" required>' . $contenu . '</textarea></td>';
-                    echo '<td><select class="form-control" name="fk_score">';
+                    echo '<input type="hidden" name="existing_img" value="' . $img . '">'; // Champ caché pour conserver l'image existante
+                    echo '<td><span class="display">' . $titre . '</span><input type="text" class="edit form-control" name="titre" value="' . $titre . '" style="display: none;"></td>';
+                    echo '<td><span class="display">' . $description . '</span><input type="text" class="edit form-control" name="description" value="' . $description . '" style="display: none;"></td>';
+                    echo '<td><span class="display">' . $contenu . '</span><textarea class="edit form-control" name="contenu" style="display: none;">' . $contenu . '</textarea></td>';
+                    
+                    // Condition pour vérifier si un score est lié ou non
+                    if (empty($row['fk_score'])) {
+                        echo '<td><span class="display">Pas de score associé</span>';
+                    } else {
+                        echo '<td><span class="display">' . $equipeWinner . ' vs ' . $equipeLooser . '</span>';
+                    }
+
+                    // Menu déroulant pour sélectionner ou changer le score
+                    echo '<select class="edit form-control" name="fk_score" style="display: none;">';
+                    echo '<option value="">-- Aucun score associé --</option>';
+
+                    // Récupérer les scores
                     $stmt_scores = $pdo->query('SELECT s.id, cw.nom AS equipeWinner, cl.nom AS equipeLooser, s.date_match 
                                                 FROM score s
                                                 JOIN club cw ON s.fk_equipeWinner = cw.id
                                                 JOIN club cl ON s.fk_equipeLooser = cl.id
                                                 ORDER BY s.date_match DESC');
+
                     while ($score = $stmt_scores->fetch(PDO::FETCH_ASSOC)) {
                         $selected = ($score['id'] == $row['fk_score']) ? 'selected' : '';
-                        echo '<option value="' . htmlspecialchars($score['id']) . '" ' . $selected . '>' . htmlspecialchars($score['equipeWinner']) . ' vs ' . htmlspecialchars($score['equipeLooser']) . ' - ' . htmlspecialchars($score['date_match']) . '</option>';
+                        echo '<option value="' . htmlspecialchars($score['id']) . '" ' . $selected . '>' . htmlspecialchars($score['equipeWinner']) . ' vs ' . htmlspecialchars($score['equipeLooser']) . '</option>';
                     }
-                    echo '</select></td>';
-                    echo '<td><input type="file" class="form-control" name="img"><input type="hidden" name="existing_img" value="' . $img . '"></td>';
-                    echo '<td><input type="checkbox" name="active" value="1" ' . ($active ? 'checked' : '') . '></td>';
-                    echo '<td><button type="submit" class="btn btn-success">Confirmer</button></td>';
+
+                    echo '</select>';
+                    echo '</td>';
+
+                    echo '<td>';
+                    if (!empty($img)) {
+                        echo '<span class="display"><img src="../' . $img . '" alt="' . $titre . '" style="width:100px;"></span>';
+                    } else {
+                        echo '<span class="display">Pas d\'image associée</span>';
+                    }
+                    echo '<input type="file" class="edit form-control" name="img" style="display: none;"></td>';
+                    
+                    // Case active grisée si non en édition
+                    echo '<td><input type="checkbox" name="active" value="1" class="edit" ' . ($active ? 'checked' : '') . ' disabled></td>';
+                    
+                    echo '<td>';
+                    echo '<button type="button" class="btn btn-link edit-icon" onclick="editRow(' . $id . ')"><i class="bi bi-pencil"></i></button>';
+                    echo '<button type="submit" class="btn btn-success edit" style="display: none;">Confirmer</button>';
                     echo '</form>';
+                    
+                    // Bouton supprimer avec confirmation
+                    echo '<form method="POST" action="addactualite.php" style="display:inline-block;" onsubmit="return confirmDelete();">';
+                    echo '<input type="hidden" name="action" value="delete">';
+                    echo '<input type="hidden" name="id" value="' . $id . '">';
+                    echo '<button type="submit" class="btn btn-link delete-icon"><i class="bi bi-trash-fill"></i></button>';
+                    echo '</form>';
+                    echo '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -377,42 +389,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
         });
 
         // Fonction pour activer le mode édition
-        function enableEditMode(id) {
-            document.getElementById('edit-row-' + id).style.display = 'table-row';
-            const checkbox = document.querySelector(`#edit-row-${id} input[type="checkbox"]`);
-            if (checkbox) {
-                checkbox.disabled = false;  // Activer la checkbox
-                checkbox.classList.remove('checkbox-disabled');  // Supprimer la classe désactivée
-            }
+        function editRow(id) {
+            // Masquer les éléments "display" et afficher les éléments "edit"
+            document.querySelectorAll('#row-' + id + ' .display').forEach(function(el) {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('#row-' + id + ' .edit').forEach(function(el) {
+                el.style.display = 'inline-block';
+            });
+
+            // Permettre l'édition de la case "active"
+            document.querySelector('#row-' + id + ' input[name="active"]').disabled = false;
         }
 
-        // Gestion du drag-and-drop pour le fichier image
-        const dropzone = document.getElementById('dropzone');
-        const fileInput = document.getElementById('img');
+        // Confirmation avant suppression
+        function confirmDelete() {
+            return confirm("Êtes-vous sûr de vouloir supprimer cette actualité ?");
+        }
 
-        dropzone.addEventListener('click', () => fileInput.click());
+        document.getElementById('dropzone').addEventListener('click', function() {
+            // Simuler un clic sur l'input file quand la zone de drop est cliquée
+            document.getElementById('img').click();
+        });
 
-        dropzone.addEventListener('dragover', (e) => {
+        document.getElementById('dropzone').addEventListener('dragover', function(e) {
             e.preventDefault();
-            dropzone.classList.add('dragover');
+            e.stopPropagation();
+            this.style.borderColor = '#007bff';
         });
 
-        dropzone.addEventListener('dragleave', () => {
-            dropzone.classList.remove('dragover');
-        });
-
-        dropzone.addEventListener('drop', (e) => {
+        document.getElementById('dropzone').addEventListener('dragleave', function(e) {
             e.preventDefault();
-            dropzone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                dropzone.textContent = e.dataTransfer.files[0].name;
-            }
+            e.stopPropagation();
+            this.style.borderColor = '#007bff';
         });
 
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                dropzone.textContent = fileInput.files[0].name;
+        document.getElementById('dropzone').addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.style.borderColor = '#007bff';
+
+            // Récupérer le fichier déposé et le mettre dans l'input file
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('img').files = files;
             }
         });
     </script>

@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form method="POST" action="addScore.php">
                 <input type="hidden" name="action" value="add">
                 <div class="mb-3">
-                    <label for="fk_equipeWinner" class="form-label">Équipe gagnante</label>
+                    <label for="fk_equipeWinner" class="form-label">Équipe Domicile</label>
                     <select class="form-control" id="fk_equipeWinner" name="fk_equipeWinner" required>
                         <?php
                         $stmt = $pdo->query('SELECT id, nom FROM club ORDER BY nom');
@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="fk_equipeLooser" class="form-label">Équipe perdante</label>
+                    <label for="fk_equipeLooser" class="form-label">Équipe Extérieur</label>
                     <select class="form-control" id="fk_equipeLooser" name="fk_equipeLooser" required>
                         <?php
                         $stmt = $pdo->query('SELECT id, nom FROM club ORDER BY nom');
@@ -222,11 +222,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="date" class="form-control" id="date_match" name="date_match" required>
                 </div>
                 <div class="mb-3">
-                    <label for="score_winner" class="form-label">Score de l'équipe gagnante</label>
+                    <label for="score_winner" class="form-label">Score de l'équipe à Domicile</label>
                     <input type="number" class="form-control" id="score_winner" name="score_winner" required>
                 </div>
                 <div class="mb-3">
-                    <label for="score_looser" class="form-label">Score de l'équipe perdante</label>
+                    <label for="score_looser" class="form-label">Score de l'équipe à l'Extérieur</label>
                     <input type="number" class="form-control" id="score_looser" name="score_looser" required>
                 </div>
                 <button type="submit" class="btn btn-success">Ajouter le score</button>
@@ -238,10 +238,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Équipe gagnante</th>
-                    <th>Score gagnant</th>
-                    <th>Équipe perdante</th>
-                    <th>Score perdant</th>
+                    <th>Équipe Domicile</th>
+                    <th>Score Domicile</th>
+                    <th>Équipe Extérieur</th>
+                    <th>Score Extérieur</th>
                     <th>Date du match</th>
                     <th></th>
                 </tr>

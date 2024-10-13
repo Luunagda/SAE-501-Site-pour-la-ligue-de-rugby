@@ -1,29 +1,61 @@
+<?php
+session_start();
+
+require 'backend/connexion.php';
+
+// Récupérer l'ID depuis l'URL
+$id = $_GET['id'];
+
+// Préparer la requête pour récupérer l'article avec cet ID
+$stmt = $pdo->prepare('
+    SELECT a.*, s.score_winner, s.score_looser, cw.nom AS equipeWinner, cl.nom AS equipeLooser 
+    FROM actualite a
+    LEFT JOIN score s ON a.fk_score = s.id
+    LEFT JOIN club cw ON s.fk_equipeWinner = cw.id
+    LEFT JOIN club cl ON s.fk_equipeLooser = cl.id
+    WHERE a.id = :id
+');
+$stmt->execute(['id' => $id]);
+$actualite = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Vérifier si l'article existe
+if (!$actualite) {
+    header('Location: resultat.php'); // Rediriger si l'article n'existe pas
+    exit();
+}
+
+
+// Récupérer les deux derniers articles sauf l'article actuel
+$stmt_recent = $pdo->prepare('
+    SELECT id, titre, description, img
+    FROM actualite 
+    WHERE active = 1 AND id != :current_id
+    ORDER BY id DESC 
+    LIMIT 3
+');
+$stmt_recent->execute(['current_id' => $id]);
+$recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ligue de Rugby de Nouvelle-Calédonie</title>
-
+    <title><?= htmlspecialchars($actualite['titre']); ?> - Ligue de Rugby de Nouvelle-Calédonie</title>
+    <link rel="stylesheet" href="style/article.css"> <!-- Fichier CSS principal -->
+    <link rel="stylesheet" href="style/css.css"> <!-- Fichier CSS principal -->
+    <link rel="stylesheet" href="style/footer.css"> <!-- Fichier CSS pour le footer -->
+    <link rel="stylesheet" href="style/navbar.css"> <!-- Fichier CSS pour la navbar -->
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style/css.css">
-    <link rel="stylesheet" href="style/carte.css">
-    <link rel="stylesheet" href="style/footer.css">
-    <link rel="stylesheet" href="style/navbar.css">
 </head>
 
 <body>
+
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
         <div class="container-fluid">
@@ -42,10 +74,7 @@
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="resultat.php">Résultats</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link active" href="cartes.html">Cartes</a>
+                        <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
@@ -56,31 +85,41 @@
         </div>
     </nav>
 
-    <div class="container pb-5">
-        <div class="carte pb-5">
-            <div class="section">
-                <h1>Joueurs calédoniens hors NC</h1>
-                <p>
-                    Bienvenue sur notre page dédiée à la <span class="highlight">cartographie des talents du rugby
-                        néo-calédonien</span> ! Cette carte
-                    interactive vous offre une vision
-                    globale de l’empreinte internationale de nos
-                    joueurs.<br><span class="highlight">Chaque marqueur sur cette carte représente un joueur de
-                        Nouvelle-Calédonie qui
-                        évolue dans un club à l'étranger.</span><br>Explorez les différents continents pour découvrir où
-                    nos athlètes
-                    portent haut les
-                    couleurs de notre île sur la scène internationale du rugby. Cette représentation vise non seulement à
-                    mettre en lumière les réussites de nos joueurs mais également à inspirer les jeunes talents locaux en
-                    leur montrant les
-                    diverses opportunités disponibles autour du globe.<br>N'hésitez pas à cliquer sur chaque marqueur pour
-                    obtenir
-                    des informations détaillées sur les joueurs, incluant leur club actuel, leur position et leur parcours.
+    <!-- Contenu principal -->
+    <div class="container main-content mt-5 pt-5">
+        <!-- Section de l'article -->
+        <div class="article-text-container" style="margin-top:5vh;">
+            <h1 class="article-title"><?= htmlspecialchars($actualite['titre']); ?></h1>
+
+            <?php if (!empty($actualite['fk_score'])): ?>
+                <p class="score-info">
+                    <?= htmlspecialchars($actualite['equipeWinner']); ?> <?= $actualite['score_winner']; ?> - <?= $actualite['score_looser']; ?> <?= htmlspecialchars($actualite['equipeLooser']); ?>
                 </p>
-                <div class="map-container">
-                    <div id="map"></div>
-                </div>
-            </div>
+            <?php endif; ?>
+
+            <?php if (!empty($actualite['img'])): ?>
+                <img src="../<?= htmlspecialchars($actualite['img']); ?>" alt="<?= htmlspecialchars($actualite['titre']); ?>" class="article-image">
+            <?php endif; ?>
+
+            <p class="article-text"><?= htmlspecialchars($actualite['contenu']); ?></p>
+
+
+        </div>
+
+        <!-- Section des articles récents -->
+        <div class="recent-articles" style="margin-top:5vh;">
+            <h3>Derniers Résultats</h3>
+            <?php foreach ($recent_articles as $recent): ?>
+                <a href="article.php?id=<?= $recent['id']; ?>" class="card">
+                    <div class="card-body">
+                    <?php if (!empty($recent['img'])): ?>
+                        <img src="../<?= htmlspecialchars($recent['img']); ?>" alt="<?= htmlspecialchars($recent['titre']); ?>" class="article-image">
+                    <?php endif; ?>
+                        <h4 class="card-title"><?= htmlspecialchars($recent['titre']); ?></h4>
+                        <p class="card-text"><?= htmlspecialchars(substr($recent['description'], 0, 100)) . '...'; ?></p>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -122,24 +161,8 @@
         </div>
     </footer>
 
-
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script>
-        // Initialisation de la carte avec Leaflet
-        var map = L.map('map').setView([-22.2711, 166.4416], 8);  
-
-        // Ajoute les tuiles OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
 </body>
 
 </html>

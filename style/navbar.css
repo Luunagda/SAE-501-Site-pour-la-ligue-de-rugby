@@ -1,25 +1,86 @@
-.burger, .burger:focus, .burger:active, .burger:hover{
+/* Suppression des bordures inutiles pour la navigation */
+.burger, .burger:focus, .burger:active, .burger:hover {
     border: none;
     outline: none;
     color: transparent;
 }
 
-.burger:hover, .nav-item:hover{
-    background-color: #909090;
-    transition: background-color .3s ease-out;
-}
-
-.nav-item:hover .nav-link{
-    color: white;
-}
-.nav-item:hover, .nav-item:focus, .nav-item:active{
-    border-radius: 0.375rem;
-}
-
-.navbar{
+/* Styles de la barre de navigation */
+.navbar {
     background-color: white;
-    border-radius: 0 0 30px 30px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between; /* S'assure que le logo et le menu sont bien positionnés */
 }
-.navbar-brand{
+
+/* Centrer les éléments de la navigation */
+.navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Pour s'assurer que les liens sont centrés sur toute la largeur */
+    margin-left: -90px;
+}
+
+/* Styles du logo à gauche */
+.navbar-brand {
     margin-left: 20px;
+    position: relative;
+    
+}
+
+/* Styles des liens */
+.nav-link {
+    color: #000;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    position: relative;
+    transition: color 0.3s ease;
+
+}
+
+/* Hover - Ajout d'une barre rouge sous le lien */
+.nav-item:hover .nav-link {
+    position: relative;
+    color: #E22B39;
+}
+
+.nav-item:hover .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 2px;
+    background-color: #E22B39;
+    transition: width 0.3s ease-in-out;
+    width: 100%; /* La barre rouge est pleine */
+}
+
+/* Active link - Ajouter un trait rouge sous le lien actif */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 2px;
+    background-color: #E22B39;
+    width: 100%;
+}
+
+/* Rendre la barre responsive */
+@media (max-width: 576px) {
+    .nav-link.active::after, .nav-link:hover::after {
+        width: 50%;
+        left: 25%;
+        right: 25%;
+    }
+
+    .nav-item:hover .nav-link::after {
+        width: 50%;
+        left: 25%;
+        right: 25%;
+    }
 }

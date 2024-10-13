@@ -1,28 +1,66 @@
-.section {
-    margin-bottom: 30px;
+h2
+{
+    margin-bottom: 5px;
 }
-
-.section h2 {
-    margin-bottom: 20px;
-}
-
 .section img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
 }
 
-.section p {
+.section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce et légère */
+}
+
+/* Disposition des éléments en ligne */
+.highlight-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; /* Permet le retour à la ligne si l'espace est limité */
+}
+
+/* Chaque élément prend 30% de l'espace disponible */
+.highlight-item {
+    flex-basis: 30%; /* Prend 30% de l'espace horizontal */
+    flex-grow: 1;
+    text-align: center;
+    border:none;
+}
+
+/* Styles pour les images des faits marquants */
+.highlight-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Texte des faits marquants */
+.highlight-text {
     font-size: 1.1rem;
     color: #555;
 }
 
-.card {
+/* Effet de survol */
+.highlight-item:hover {
+    transform: scale(1.05);
     transition: transform 0.3s ease;
 }
 
-.card:hover {
-    transform: scale(1.05);
+/* Réactivité pour les petits écrans */
+@media (max-width: 768px) {
+    .highlight-row {
+        flex-direction: column; /* Empile les éléments verticalement sur mobile */
+        align-items: center;
+    }
+
+    .highlight-item {
+        width: 100%; /* Les éléments prennent 100% de la largeur sur mobile */
+        margin-bottom: 20px;
+    }
 }
 
 .jumbotron {
@@ -63,31 +101,13 @@
 }
 
 
-.owl-prev, .owl-next{
-    color: #FFF;
-    font-size: 14px;
-    margin: 5px;
-    padding: 4px 7px;
-    background: #4D4D4D;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 3px;
-    padding: 8px 12px 6px 12px;
-}
-
-.owl-prev:hover, .owl-next:hover{
-    background: #c0c0c0;
-    color: #FFF;
-    text-decoration: none;
-}
-
 .carousel-club-title{
     display: flex;
     justify-content: space-between;
 }
 
 .carousel-container div{
-    transform: scale(0.6);
+    transform: scale(0.9);
     transition: transform .3s ease-out;
 
 }
@@ -109,12 +129,94 @@
 
 }
 
-.carousel-container .item img {
-    width: 25vw; 
-    height: auto; 
+.owl-carousel .item {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    flex-direction: column; /* Empilement vertical */
+    width: 200px;
+    padding: 10px; /* Optionnel : ajout de padding */
+    box-sizing: border-box;
+    text-align: center; /* Centrer le texte si nécessaire */
+    height: 300px; /* Définir une hauteur fixe pour aligner les images verticalement */
 }
 
-.carousel-container .item {
+.owl-carousel .item img {
+    max-width: 100%;
+    max-height: 100%; /* Limite la taille de l'image à la hauteur définie */
+    object-fit: contain; /* Contient l'image dans l'espace sans la découper */
+    display: block;
+}
+
+/* Lightbox (fenêtre modale) */
+.lightbox {
+    position: fixed; /* pour qu'elle soit toujours visible même en scrollant */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* semi-transparent */
+    display: none; /* cachée par défaut */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* plus élevé que celui de la navbar */
+}
+
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    width: 75%; /* Limite la largeur à 75% de l'écran */
+    max-width: 75%; /* Empêche l'image de dépasser 75% de la largeur de l'écran */
+    max-height: 75%; /* Limite la hauteur à 75% de l'écran */
+    object-fit: contain; /* Garde les proportions correctes de l'image */
+}
+
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
     text-align: center;
-    padding: 20px;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Ajuster la taille des icônes selon la taille de l'écran */
+.atout-icon {
+    width: 80px;
+    border-radius: 30px;
+}
+
+@media (max-width: 768px) {
+    .atout-icon {
+        width: 60px; /* Réduction de la taille des icônes sur tablettes et petits écrans */
+
+    }
+}
+
+@media (max-width: 576px) {
+    .atout-icon {
+        width: 50px; /* Réduction supplémentaire sur très petits écrans */
+
+    }
 }
