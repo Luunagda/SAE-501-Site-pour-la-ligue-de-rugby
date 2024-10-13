@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { "image": "clubs/kunie.png", "titre": "Association Sportive Kunie", "localité": "Île des Pins" },
         { "image": "clubs/bourail.jpeg", "titre": "Comite Sportif Bouraillais", "localité": "Bourail" },
         { "image": "clubs/nepoui.png", "titre": "Association Omnisports Nepoui", "localité": "Poya" },
-        { "image": "clubs/crevette.png", "titre": "Crevettes Musclées Nord Rugby", "localité": "Koumac" },
+        { "image": "clubs/crevette.png", "titre": "Crevettes Musclées Nord Rugby", "localité": "Pouembout" },
         { "image": "clubs/houps.png", "titre": "Les Houps Club de Rugby de Poindimie", "localité": "Poindimie" },
         { "image": "clubs/nengone.jpeg", "titre": "Nengone Ovalie Rugby Ensemble Saisissons l’Avenir", "localité": "Maré" }
     ];
