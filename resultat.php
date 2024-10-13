@@ -6,7 +6,7 @@ require 'backend/connexion.php';
 
 // Récupérer les actualités depuis la base de données
 $stmt = $pdo->query('
-    SELECT a.*, s.score_winner, s.score_looser, cw.nom AS equipeWinner, cl.nom AS equipeLooser 
+    SELECT a.*, s.score_winner, s.score_looser, cw.nom AS equipeWinner, cl.nom AS equipeLooser, cw.image AS winner_img, cl.image AS looser_img
     FROM actualite a
     LEFT JOIN score s ON a.fk_score = s.id
     LEFT JOIN club cw ON s.fk_equipeWinner = cw.id
@@ -137,19 +137,34 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <h2 class="card-title">
                                     <?= htmlspecialchars($actualite['titre']); ?>
                                 </h2>
-                                <?php if (!empty($actualite['img'])): ?>
+                                <!-- <?php if (!empty($actualite['img'])): ?>
                                 <img src="../<?= htmlspecialchars($actualite['img']); ?>" alt="<?= htmlspecialchars($actualite['titre']); ?>" class="article-image" style="width:200px;border-radius:5px;">
-                            <?php endif; ?>
+                                <?php endif; ?> -->
                                 <!-- Affichage du score s'il y a un score associé -->
-                                <?php if (!empty($actualite['fk_score'])): ?>
+                                <!-- <?php if (!empty($actualite['fk_score'])): ?>
                                     <p class="score-info">
                                         <?= htmlspecialchars($actualite['equipeWinner']); ?> <?= $actualite['score_winner']; ?> - <?= $actualite['score_looser']; ?> <?= htmlspecialchars($actualite['equipeLooser']); ?>
                                     </p>
                                 <?php endif; ?>
 
-                                <p class="card-text"><?= htmlspecialchars($actualite['description']); ?></p>
+                                <p class="card-text"><?= htmlspecialchars($actualite['description']); ?></p> -->
+
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="text-center">
+                                        <img src="<?= !empty($actualite['winner_img']) ? htmlspecialchars($actualite['winner_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($actualite['equipeWinner']); ?>" class="img-fluid" style="width: 100px;">
+                                        <p><?= htmlspecialchars($actualite['equipeWinner']); ?></p>
+                                    </div>
+                                    <h3 class="mx-3"><?= htmlspecialchars($actualite['score_winner']) ?></h3>
+                                    <h3 class="mx-3">-</h3>
+                                    <h3 class="mx-3"><?= htmlspecialchars($actualite['score_looser']) ?></h3>
+                                    <div class="text-center">
+                                        <img src="<?= !empty($actualite['looser_img']) ? htmlspecialchars($actualite['looser_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($actualite['equipeLooser']); ?>" class="img-fluid" style="width: 100px;">
+                                        <p><?= htmlspecialchars($actualite['equipeLooser']); ?></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
                     </a>
                 </div>
             <?php endforeach; ?>

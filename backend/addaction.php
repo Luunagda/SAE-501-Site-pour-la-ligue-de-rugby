@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require 'connexion.php'; // Inclure le fichier de connexion à la base de données
+require 'connexion.php';
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
@@ -10,30 +10,44 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupérer les droits de l'utilisateur depuis la base de données
-$stmt = $pdo->prepare('SELECT DroitPartenaire, DroitUser, DroitScore, DroitActualite, DroitClub FROM users WHERE id = :id');
+$stmt = $pdo->prepare('SELECT DroitPartenaire, DroitUser, DroitScore, DroitActualite, DroitClub, DroitAction FROM users WHERE id = :id');
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Vérifier si l'utilisateur a les droits pour gérer les actions
-if (!$user || $user['DroitAction'] != 1) {
+if (!$user || $user['DroitActualite'] != 1) {
     header('Location: access_denied.php');
     exit();
 }
 
-// Traitement des formulaires d'ajout et de mise à jour
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'add') {
         // Récupérer les données du formulaire
         $titre = $_POST['titre'];
         $description = $_POST['description'];
         $section_une = $_POST['section_une'];
-        $section_deux = $_POST['section_deux'] ?? NULL; // Optionnel
-        $section_trois = $_POST['section_trois'] ?? NULL; // Optionnel
-        $section_quatre = $_POST['section_quatre'] ?? NULL; // Optionnel
-        $image_une = $_POST['image_une'] ?? NULL; // Optionnel
-        $image_deux = $_POST['image_deux'] ?? NULL; // Optionnel
-        $image_trois = $_POST['image_trois'] ?? NULL; // Optionnel
-        $image_quatre = $_POST['image_quatre'] ?? NULL; // Optionnel
+        $section_deux = $_POST['section_deux'];
+        $section_trois = $_POST['section_trois'];
+        $section_quatre = $_POST['section_quatre'];
+        $img_une = NULL;
+        $img_deux = NULL;
+        $img_trois = NULL;
+        $img_quatre = NULL;
+
+        // Gérer l'upload des images
+        for ($i = 1; $i <= 4; $i++) {
+            if (isset($_FILES["image_$i"]) && $_FILES["image_$i"]['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = '../assets/actions/';
+                $uploadFile = $uploadDir . basename($_FILES["image_$i"]['name']);
+                
+                if (move_uploaded_file($_FILES["image_$i"]['tmp_name'], $uploadFile)) {
+                    ${"img_$i"} = 'assets/actions/' . basename($_FILES["image_$i"]['name']);
+                } else {
+                    echo "Échec de l'upload de l'image $i.";
+                    exit();
+                }
+            }
+        }
 
         // Insertion des données
         $stmt = $pdo->prepare('INSERT INTO action (titre, description, section_une, section_deux, section_trois, section_quatre, image_une, image_deux, image_trois, image_quatre) 
@@ -45,10 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'section_deux' => $section_deux,
             'section_trois' => $section_trois,
             'section_quatre' => $section_quatre,
-            'image_une' => $image_une,
-            'image_deux' => $image_deux,
-            'image_trois' => $image_trois,
-            'image_quatre' => $image_quatre
+            'image_une' => $img_une,
+            'image_deux' => $img_deux,
+            'image_trois' => $img_trois,
+            'image_quatre' => $img_quatre
         ]);
 
         header('Location: addaction.php');
@@ -59,20 +73,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $titre = $_POST['titre'];
         $description = $_POST['description'];
         $section_une = $_POST['section_une'];
-        $section_deux = $_POST['section_deux'] ?? NULL;
-        $section_trois = $_POST['section_trois'] ?? NULL;
-        $section_quatre = $_POST['section_quatre'] ?? NULL;
-        $image_une = $_POST['image_une'] ?? NULL;
-        $image_deux = $_POST['image_deux'] ?? NULL;
-        $image_trois = $_POST['image_trois'] ?? NULL;
-        $image_quatre = $_POST['image_quatre'] ?? NULL;
+        $section_deux = $_POST['section_deux'];
+        $section_trois = $_POST['section_trois'];
+        $section_quatre = $_POST['section_quatre'];
+
+        // Gérer les images existantes
+        $existing_images = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $existing_images[$i] = $_POST["existing_image_$i"]; // L'image existante
+        }
+
+        // Gérer l'upload des nouvelles images
+        $new_images = [];
+        for ($i = 1; $i <= 4; $i++) {
+            if (isset($_FILES["image_$i"]) && $_FILES["image_$i"]['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = '../assets/actions/';
+                $uploadFile = $uploadDir . basename($_FILES["image_$i"]['name']);
+                
+                if (move_uploaded_file($_FILES["image_$i"]['tmp_name'], $uploadFile)) {
+                    $new_images[$i] = 'assets/actions/' . basename($_FILES["image_$i"]['name']);
+                } else {
+                    echo "Échec de l'upload de l'image $i.";
+                    exit();
+                }
+            } else {
+                // Si aucune nouvelle image n'est uploadée, conserver l'ancienne
+                $new_images[$i] = $existing_images[$i];
+            }
+        }
 
         // Mise à jour des données
         $stmt = $pdo->prepare('UPDATE action 
                                SET titre = :titre, description = :description, section_une = :section_une, 
-                                   section_deux = :section_deux, section_trois = :section_trois, 
-                                   section_quatre = :section_quatre, image_une = :image_une, 
-                                   image_deux = :image_deux, image_trois = :image_trois, image_quatre = :image_quatre 
+                                   section_deux = :section_deux, section_trois = :section_trois, section_quatre = :section_quatre, 
+                                   image_une = :image_une, image_deux = :image_deux, image_trois = :image_trois, image_quatre = :image_quatre 
                                WHERE id = :id');
         $stmt->execute([
             'titre' => $titre,
@@ -81,10 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'section_deux' => $section_deux,
             'section_trois' => $section_trois,
             'section_quatre' => $section_quatre,
-            'image_une' => $image_une,
-            'image_deux' => $image_deux,
-            'image_trois' => $image_trois,
-            'image_quatre' => $image_quatre,
+            'image_une' => $new_images[1],
+            'image_deux' => $new_images[2],
+            'image_trois' => $new_images[3],
+            'image_quatre' => $new_images[4],
             'id' => $id
         ]);
 
@@ -93,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     }
 }
 
-// Traitement de la suppression
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
     $id = $_POST['id'];
 
@@ -104,10 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     header('Location: addaction.php');
     exit();
 }
-
-// Récupérer toutes les actions pour affichage
-$stmt = $pdo->query('SELECT * FROM action ORDER BY id DESC');
-$actions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -116,118 +145,279 @@ $actions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Actions</title>
+    <title>Gestion des Actions - Ligue de Rugby de Nouvelle-Calédonie</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .delete-icon {
+            color: red;
+            cursor: pointer;
+        }
+
+        .edit-icon {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .dropzone {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #007bff;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2>Gestion des Actions</h2>
-        <button class="btn btn-primary mb-3" id="toggleFormButton">Ajouter une Action</button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">
+                <img src="../assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addusers.php">Gestion des utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addscore.php">Gestion des Scores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addactualite.php">Gestion des Actualités</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addclub.php">Gestion des Clubs</a>
+                    </li>
+                </ul>
+                <div class="ml-auto">
+                    <a href="logout.php" class="btn btn-outline-danger">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <div id="addActionForm" style="display: none;">
-            <h2>Ajouter une nouvelle action</h2>
-            <form method="POST" action="addaction.php">
-                <input type="hidden" name="action" value="add">
-                <div class="mb-3">
-                    <label for="titre" class="form-label">Titre</label>
-                    <input type="text" class="form-control" id="titre" name="titre" required>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="section_une" class="form-label">Section 1</label>
-                    <textarea class="form-control" id="section_une" name="section_une" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="section_deux" class="form-label">Section 2</label>
-                    <textarea class="form-control" id="section_deux" name="section_deux"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="section_trois" class="form-label">Section 3</label>
-                    <textarea class="form-control" id="section_trois" name="section_trois"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="section_quatre" class="form-label">Section 4</label>
-                    <textarea class="form-control" id="section_quatre" name="section_quatre"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="image_une" class="form-label">Image 1 (URL)</label>
-                    <input type="text" class="form-control" id="image_une" name="image_une">
-                </div>
-                <div class="mb-3">
-                    <label for="image_deux" class="form-label">Image 2 (URL)</label>
-                    <input type="text" class="form-control" id="image_deux" name="image_deux">
-                </div>
-                <div class="mb-3">
-                    <label for="image_trois" class="form-label">Image 3 (URL)</label>
-                    <input type="text" class="form-control" id="image_trois" name="image_trois">
-                </div>
-                <div class="mb-3">
-                    <label for="image_quatre" class="form-label">Image 4 (URL)</label>
-                    <input type="text" class="form-control" id="image_quatre" name="image_quatre">
-                </div>
-                <button type="submit" class="btn btn-success">Ajouter</button>
-                <button type="button" class="btn btn-secondary" id="cancelAddButton">Annuler</button>
-            </form>
+    <div class="container mt-5">
+    <h1 class="mb-4">Gestion des Actions</h1>
+
+    <!-- Bouton pour ajouter une action -->
+    <button id="addActionBtn" class="btn btn-success mb-4">Ajouter une Action</button>
+
+    <!-- Formulaire d'ajout d'action, masqué par défaut -->
+    <form id="addActionForm" method="POST" enctype="multipart/form-data" class="mb-5" style="display: none;">
+        <input type="hidden" name="action" value="add">
+        <div class="mb-3">
+            <label for="titre" class="form-label">Titre</label>
+            <input type="text" name="titre" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="5" required></textarea>
         </div>
 
-        <h2 class="mt-5">Liste des Actions</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($actions as $action): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($action['id']); ?></td>
-                        <td><?php echo htmlspecialchars($action['titre']); ?></td>
-                        <td><?php echo htmlspecialchars($action['description']); ?></td>
-                        <td>
-                            <button class="btn btn-warning editButton" data-id="<?php echo $action['id']; ?>" data-titre="<?php echo htmlspecialchars($action['titre']); ?>" data-description="<?php echo htmlspecialchars($action['description']); ?>">Modifier</button>
-                            <form method="POST" action="addaction.php" style="display:inline;">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="id" value="<?php echo $action['id']; ?>">
-                                <button type="submit" class="btn btn-danger">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <h5>Secteurs</h5>
+        <div class="mb-3">
+            <label for="section_une" class="form-label">Section Une</label>
+            <input type="text" name="section_une" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="section_deux" class="form-label">Section Deux</label>
+            <input type="text" name="section_deux" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="section_trois" class="form-label">Section Trois</label>
+            <input type="text" name="section_trois" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="section_quatre" class="form-label">Section Quatre</label>
+            <input type="text" name="section_quatre" class="form-control">
+        </div>
+
+        <h5>Images</h5>
+        <div class="mb-3 dropzone">
+            <input type="file" name="image_1" accept="image/*">
+            <p>Glisser-déposer ou cliquer pour télécharger l'image 1</p>
+        </div>
+        <div class="mb-3 dropzone">
+            <input type="file" name="image_2" accept="image/*">
+            <p>Glisser-déposer ou cliquer pour télécharger l'image 2</p>
+        </div>
+        <div class="mb-3 dropzone">
+            <input type="file" name="image_3" accept="image/*">
+            <p>Glisser-déposer ou cliquer pour télécharger l'image 3</p>
+        </div>
+        <div class="mb-3 dropzone">
+            <input type="file" name="image_4" accept="image/*">
+            <p>Glisser-déposer ou cliquer pour télécharger l'image 4</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter Action</button>
+        <button type="button" class="btn btn-secondary" id="cancelAddActionBtn">Annuler</button>
+    </form>
+
+    <h2 class="mb-4">Liste des Actions</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Récupérer les actions depuis la base de données
+            $stmt = $pdo->query('SELECT * FROM action ORDER BY id DESC');
+            while ($action = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($action['id']) . '</td>';
+                echo '<td>' . htmlspecialchars($action['titre']) . '</td>';
+                echo '<td>' . htmlspecialchars($action['description']) . '</td>';
+                echo '<td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="' . htmlspecialchars($action['id']) . '">
+                            <input type="hidden" name="action" value="delete">
+                            <button type="submit" class="delete-icon"><i class="bi bi-trash"></i> Supprimer</button>
+                        </form>
+                        <button class="edit-icon" data-id="' . htmlspecialchars($action['id']) . '" data-titre="' . htmlspecialchars($action['titre']) . '" data-description="' . htmlspecialchars($action['description']) . '"><i class="bi bi-pencil"></i> Modifier</button>
+                      </td>';
+                echo '</tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+
+    <!-- Modal pour modifier une action -->
+    <div class="modal fade" id="editActionModal" tabindex="-1" aria-labelledby="editActionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editActionModalLabel">Modifier l'Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editActionForm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="update">
+                        <input type="hidden" name="id" id="edit_id">
+                        <div class="mb-3">
+                            <label for="edit_titre" class="form-label">Titre</label>
+                            <input type="text" name="titre" id="edit_titre" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_description" class="form-label">Description</label>
+                            <textarea name="description" id="edit_description" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_section_une" class="form-label">Section Une</label>
+                            <input type="text" name="section_une" id="edit_section_une" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_section_deux" class="form-label">Section Deux</label>
+                            <input type="text" name="section_deux" id="edit_section_deux" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_section_trois" class="form-label">Section Trois</label>
+                            <input type="text" name="section_trois" id="edit_section_trois" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_section_quatre" class="form-label">Section Quatre</label>
+                            <input type="text" name="section_quatre" id="edit_section_quatre" class="form-control">
+                        </div>
+                        <h5>Images</h5>
+                        <div class="mb-3">
+                            <label>Image 1 existante: <span id="existing_image_1"></span></label>
+                            <input type="file" name="image_1" accept="image/*">
+                            <input type="hidden" name="existing_image_1" id="existing_image_1_input">
+                        </div>
+                        <div class="mb-3">
+                            <label>Image 2 existante: <span id="existing_image_2"></span></label>
+                            <input type="file" name="image_2" accept="image/*">
+                            <input type="hidden" name="existing_image_2" id="existing_image_2_input">
+                        </div>
+                        <div class="mb-3">
+                            <label>Image 3 existante: <span id="existing_image_3"></span></label>
+                            <input type="file" name="image_3" accept="image/*">
+                            <input type="hidden" name="existing_image_3" id="existing_image_3_input">
+                        </div>
+                        <div class="mb-3">
+                            <label>Image 4 existante: <span id="existing_image_4"></span></label>
+                            <input type="file" name="image_4" accept="image/*">
+                            <input type="hidden" name="existing_image_4" id="existing_image_4_input">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Mettre à jour Action</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Toggle the visibility of the add action form
-        document.getElementById('toggleFormButton').addEventListener('click', function () {
-            const form = document.getElementById('addActionForm');
-            form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+        // Script pour afficher le formulaire d'ajout d'action
+        document.getElementById('addActionBtn').addEventListener('click', function () {
+            document.getElementById('addActionForm').style.display = 'block'; // Afficher le formulaire
         });
 
-        // Handle the cancel button
-        document.getElementById('cancelAddButton').addEventListener('click', function () {
-            document.getElementById('addActionForm').style.display = 'none';
+        // Script pour annuler l'ajout d'une action
+        document.getElementById('cancelAddActionBtn').addEventListener('click', function () {
+            document.getElementById('addActionForm').style.display = 'none'; // Cacher le formulaire
         });
-
-        // Handle the edit button
-        document.querySelectorAll('.editButton').forEach(function (button) {
+        // Script pour ouvrir le modal de modification
+        document.querySelectorAll('.edit-icon').forEach(button => {
             button.addEventListener('click', function () {
-                const id = button.getAttribute('data-id');
-                const titre = button.getAttribute('data-titre');
-                const description = button.getAttribute('data-description');
-                
-                document.getElementById('titre').value = titre;
-                document.getElementById('description').value = description;
-                document.querySelector('input[name="action"]').value = 'update';
-                document.querySelector('input[name="id"]').value = id;
-                document.getElementById('addActionForm').style.display = 'block';
+                const id = this.dataset.id;
+                const titre = this.dataset.titre;
+                const description = this.dataset.description;
+
+                // Remplir le formulaire du modal avec les données existantes
+                document.getElementById('edit_id').value = id;
+                document.getElementById('edit_titre').value = titre;
+                document.getElementById('edit_description').value = description;
+
+                // Chargement des sections si elles existent
+                fetch('get_sections.php?id=' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('edit_section_une').value = data.section_une;
+                        document.getElementById('edit_section_deux').value = data.section_deux;
+                        document.getElementById('edit_section_trois').value = data.section_trois;
+                        document.getElementById('edit_section_quatre').value = data.section_quatre;
+
+                        // Afficher les images existantes
+                        document.getElementById('existing_image_1').textContent = data.existing_image_1 || 'Aucune image';
+                        document.getElementById('existing_image_2').textContent = data.existing_image_2 || 'Aucune image';
+                        document.getElementById('existing_image_3').textContent = data.existing_image_3 || 'Aucune image';
+                        document.getElementById('existing_image_4').textContent = data.existing_image_4 || 'Aucune image';
+                        
+                        // Set the hidden input values for existing images
+                        document.getElementById('existing_image_1_input').value = data.existing_image_1 || '';
+                        document.getElementById('existing_image_2_input').value = data.existing_image_2 || '';
+                        document.getElementById('existing_image_3_input').value = data.existing_image_3 || '';
+                        document.getElementById('existing_image_4_input').value = data.existing_image_4 || '';
+                    });
+
+                // Afficher le modal
+                const modal = new bootstrap.Modal(document.getElementById('editActionModal'));
+                modal.show();
             });
         });
     </script>
