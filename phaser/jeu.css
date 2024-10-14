@@ -256,3 +256,10 @@ body {
     justify-content: center;
     flex-wrap: wrap;
 }
+
+/* Ajouter un effet visuel pour le club sélectionné */
+.club.selected {
+    border: 2px solid blue;
+    background-color: rgba(0, 0, 255, 0.1);
+    /* Légère coloration pour montrer qu'il est sélectionné */
+}
