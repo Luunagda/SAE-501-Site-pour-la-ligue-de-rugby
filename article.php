@@ -57,7 +57,7 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
@@ -72,6 +72,9 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>

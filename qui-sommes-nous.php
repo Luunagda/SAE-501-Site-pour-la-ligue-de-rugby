@@ -26,7 +26,7 @@
 
 <body>
     <!-- Navbar-->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
@@ -40,13 +40,16 @@
                         <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                        <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="resultat.php">Résultats</a>
+                        <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link " href="actualites.php">Actualités</a>
@@ -54,7 +57,6 @@
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -83,28 +85,22 @@
 
         <!-- Section Nos atouts -->
         <div class="section py-5">
-            <h2 class="text-center mb-3">Nos atouts</h2>
+            <h2 class="text-center mb-3">Nos valeurs</h2>
             <div class="row text-center align-items-center justify-content-center">
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/force.png" alt="Force" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Respect</p>
                 </div>
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/medaille.png" alt="Médaille" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Inclusion</p>
                 </div>
                 <div class="col-4 col-md-2">
                     <img src="assets/icons/partenaire.png" alt="Partenaire" class="img-fluid atout-icon">
-                    <p>Valeur</p>
+                    <p>Solidarité</p>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="section py-5">
-            <h2 class="text-left mb-3">Nos valeurs</h2>
-            <div class="row">
+            <div class="row mt-5 pt-5">
                 <div class="col-md-8">
                     <p>
                         La Ligue de Rugby de Nouvelle-Calédonie incarne des valeurs essentielles :
@@ -153,46 +149,63 @@
                 </div>
             </div>
         </div>
+<script>
+    // Fonction pour ouvrir la lightbox
+function openLightbox(imageSrc, captionText) {
+    document.getElementById("lightbox").style.display = "block";
+    document.getElementById("lightboxImage").src = imageSrc;
+    document.getElementById("caption").innerHTML = captionText;
+}
 
-        <script>
-            // Fonction pour ouvrir la lightbox
-            function openLightbox(imageSrc, captionText) {
-                document.getElementById("lightbox").style.display = "block";
-                document.getElementById("lightboxImage").src = imageSrc;
-                document.getElementById("caption").innerHTML = captionText;
-            }
+// Fonction pour fermer la lightbox
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
 
-            // Fonction pour fermer la lightbox
-            function closeLightbox() {
-                document.getElementById("lightbox").style.display = "none";
-            }
-        </script>
-        <!-- Section des faits marquants -->
-        <div class="section" style="margin-top:20px;margin-bottom:5%;">
-            <h2 class="text-center mb-3">Faits marquants</h2>
-            <div class="highlight-row">
-                <!-- Structure de la Lightbox -->
-                <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-                    <span class="close">&times;</span>
-                    <img class="lightbox-content" id="lightboxImage">
-                    <div id="caption"></div>
-                </div>
+</script>
+            <!-- Section des faits marquants -->
+            <div class="section" style="margin-top:20px;margin-bottom:5%;">
+                <h2 class="text-center mb-3">Faits marquants</h2>
+                <div class="highlight-row">
+                    <!-- Structure de la Lightbox -->
+                    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                        <span class="close">&times;</span>
+                        <img class="lightbox-content" id="lightboxImage">
+                        <div id="caption"></div>
+                    </div>
 
-                <!-- Vos images -->
-                <div class="highlight-item" onclick="openLightbox('assets/images/couv_fb_rugby_nc.jpg', 'Participation record à la Coupe de Calédonie 2022.')">
-                    <img src="assets/images/couv_fb_rugby_nc.jpg" alt="Fait marquant 2" class="highlight-image">
-                    <p class="highlight-text">Participation record à la Coupe de Calédonie 2022.</p>
-                </div>
-                <div class="highlight-item" onclick="openLightbox('assets/images/championnat_XV.jpg', 'Victoire historique du club A lors du championnat 2021.')">
-                    <img src="assets/images/championnat_XV.jpg" alt="Fait marquant 1" class="highlight-image">
-                    <p class="highlight-text">Victoire historique du club A lors du championnat 2021.</p>
-                </div>
-                <div class="highlight-item" onclick="openLightbox('assets/images/rugby_femme_equipe_nc.jpg', 'Création du nouveau centre de formation en 2020.')">
-                    <img src="assets/images/rugby_femme_equipe_nc.jpg" alt="Fait marquant 3" class="highlight-image">
-                    <p class="highlight-text">Création du nouveau centre de formation en 2020.</p>
-                </div>
+                    <!-- Vos images -->
+                    <div class="highlight-item" onclick="openLightbox('assets/images/couv_fb_rugby_nc.jpg', 'Participation record à la Coupe de Calédonie 2022.')">
+                        <img src="assets/images/couv_fb_rugby_nc.jpg" alt="Fait marquant 2" class="highlight-image">
+                        <p class="highlight-text">Participation record à la Coupe de Calédonie 2022.</p>
+                    </div>
+                    <div class="highlight-item" onclick="openLightbox('assets/images/championnat_XV.jpg', 'Victoire historique du club A lors du championnat 2021.')">
+                        <img src="assets/images/championnat_XV.jpg" alt="Fait marquant 1" class="highlight-image">
+                        <p class="highlight-text">Victoire historique du club A lors du championnat 2021.</p>
+                    </div>
+                    <div class="highlight-item" onclick="openLightbox('assets/images/rugby_femme_equipe_nc.jpg', 'Création du nouveau centre de formation en 2020.')">
+                        <img src="assets/images/rugby_femme_equipe_nc.jpg" alt="Fait marquant 3" class="highlight-image">
+                        <p class="highlight-text">Création du nouveau centre de formation en 2020.</p>
+                    </div>
 
+                </div>
             </div>
+            <div>
+                <h2 class="text-center mb-3">Trouver un club</h2>
+                <div class="container">
+                    <label for="provinceFilter">Filtrer par province :</label>
+                    <select id="provinceFilter" class="form-select" aria-label="Filtrer par province">
+                        <option value="Tous">Toutes les provinces</option>
+                        <option value="Sud">Province Sud</option>
+                        <option value="Nord">Province Nord</option>
+                        <option value="Îles Loyauté">Province des Îles Loyauté</option>
+                    </select>
+                </div>
+                <div class="map-container">
+                    <div id="map" style="height: 500px; width: 100%;"></div>
+                </div>
+            </div>
+            
         </div>
         <div class="map-container">
             <div id="map" style="height: 500px; width: 100%;"></div>
@@ -209,7 +222,7 @@
     ?>
 
     <!-- Clubs Section with Owl Carousel -->
-    <div class="clubs py-5">
+    <div class="clubs py-5 mt-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Nos clubs</h2>
@@ -325,7 +338,9 @@
 
             // Fonction pour afficher les clubs sur la carte en fonction de la province sélectionnée
             function afficherClubs(clubs, province) {
-                map.eachLayer(function(layer) {
+
+                // Retirer les anciens marqueurs avant d'ajouter les nouveaux
+                map.eachLayer(function (layer) {
                     if (layer.options && layer.options.pane === "markerPane") {
                         map.removeLayer(layer);
                     }
@@ -334,13 +349,42 @@
                 // Ajouter les marqueurs pour les clubs de la province sélectionnée
                 clubs.forEach(function(club) {
                     if (province === "Tous" || club.province === province) {
-                        L.marker([club.latitude, club.longitude], {
-                                icon: createCustomIcon(club)
-                            }).addTo(map)
-                            .bindPopup(`<b>${club.titre}</b><br>${club.adresse}`);
+                        // Créer le contenu du popup conditionnellement
+                        let popupContent = `<b>${club.titre}</b><br>`;
+
+                        // Ajouter l'adresse uniquement si elle est disponible et différente de 'null'
+                        if (club.adresse && club.adresse !== 'null') {
+                            popupContent += `${club.adresse}<br>`;
+                        }
+
+                        // Ajouter le président uniquement s'il est disponible
+                        if (club.president) {
+                            popupContent += `Président: ${club.president}<br>`;
+                        }
+
+                        // Ajouter l'email uniquement s'il est disponible
+                        if (club.email) {
+                            popupContent += `Email: <a href="mailto:${club.email}">${club.email}</a><br>`;
+                        }
+
+                        // Ajouter le bouton "Plus d'informations" uniquement si le lien est disponible
+                        if (club.lien && club.lien !== 'null') {
+                            let lien = club.lien.startsWith('http') ? club.lien : 'https://' + club.lien;  // S'assurer que le lien commence par 'http'
+                            popupContent += `<div class="btn-container">
+                                                <a href="${lien}" target="_blank" class="btn btn-primary" style="background-color: #E22B39; border: none; color: white; width: 100px; font-size: 13px;"  onmouseover="this.style.backgroundColor='#4D4D4D'; this.style.transition='background-color .3s ease-out';" onmouseout="this.style.backgroundColor='#E22B39';">En savoir +</a>
+                                            </div>`;
+                        }
+
+                        // Ajouter le marqueur avec le popup personnalisé
+                        L.marker([club.latitude, club.longitude], { icon: createCustomIcon(club) }).addTo(map)
+                            .bindPopup(popupContent);
                     }
                 });
             }
+
+
+
+
 
             // Récupérer les données des clubs depuis la base de données via AJAX
             $.ajax({

@@ -6,7 +6,7 @@ require 'backend/connexion.php';
 
 // Récupérer les actualités depuis la base de données
 $stmt = $pdo->query('
-    SELECT a.*, s.score_winner, s.score_looser, cw.nom AS equipeWinner, cl.nom AS equipeLooser 
+    SELECT a.*, s.score_winner, s.score_looser, cw.nom AS equipeWinner, cl.nom AS equipeLooser, cw.image AS winner_img, cl.image AS looser_img
     FROM actualite a
     LEFT JOIN score s ON a.fk_score = s.id
     LEFT JOIN club cw ON s.fk_equipeWinner = cw.id
@@ -93,7 +93,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
@@ -110,6 +110,9 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
                     </li>
                     <li class="nav-item px-2">
@@ -121,7 +124,6 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -130,6 +132,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Contenu principal -->
     <div class="container mt-5 pt-5">
         <div class="row" style="margin-top:5vh;">
+            <h1 class="text-center mb-4">Résultats</h1>
             <?php foreach ($actualites as $actualite): ?>
                 <div class="col-md-6 mb-4"> <!-- Deux actualités par ligne -->
                     <!-- Toute la carte est désormais un lien cliquable -->
@@ -140,19 +143,36 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <h2 class="card-title">
                                     <?= htmlspecialchars($actualite['titre']); ?>
                                 </h2>
-                                <?php if (!empty($actualite['img'])): ?>
-                                    <img src="../<?= htmlspecialchars($actualite['img']); ?>" alt="<?= htmlspecialchars($actualite['titre']); ?>" class="article-image" style="width:200px;border-radius:5px;">
-                                <?php endif; ?>
+                              
+                                <!-- <?php if (!empty($actualite['img'])): ?>
+                                <img src="../<?= htmlspecialchars($actualite['img']); ?>" alt="<?= htmlspecialchars($actualite['titre']); ?>" class="article-image" style="width:200px;border-radius:5px;">
+                                <?php endif; ?> -->
+
                                 <!-- Affichage du score s'il y a un score associé -->
-                                <?php if (!empty($actualite['fk_score'])): ?>
+                                <!-- <?php if (!empty($actualite['fk_score'])): ?>
                                     <p class="score-info">
                                         <?= htmlspecialchars($actualite['equipeWinner']); ?> <?= $actualite['score_winner']; ?> - <?= $actualite['score_looser']; ?> <?= htmlspecialchars($actualite['equipeLooser']); ?>
                                     </p>
                                 <?php endif; ?>
 
-                                <p class="card-text"><?= htmlspecialchars($actualite['description']); ?></p>
+                                <p class="card-text"><?= htmlspecialchars($actualite['description']); ?></p> -->
+
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="text-center">
+                                        <img src="<?= !empty($actualite['winner_img']) ? htmlspecialchars($actualite['winner_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($actualite['equipeWinner']); ?>" class="img-fluid" style="width: 100px;">
+                                        <p><?= htmlspecialchars($actualite['equipeWinner']); ?></p>
+                                    </div>
+                                    <h3 class="mx-3"><?= htmlspecialchars($actualite['score_winner']) ?></h3>
+                                    <h3 class="mx-3">-</h3>
+                                    <h3 class="mx-3"><?= htmlspecialchars($actualite['score_looser']) ?></h3>
+                                    <div class="text-center">
+                                        <img src="<?= !empty($actualite['looser_img']) ? htmlspecialchars($actualite['looser_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($actualite['equipeLooser']); ?>" class="img-fluid" style="width: 100px;">
+                                        <p><?= htmlspecialchars($actualite['equipeLooser']); ?></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
                     </a>
                 </div>
             <?php endforeach; ?>

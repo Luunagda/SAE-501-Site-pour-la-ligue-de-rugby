@@ -5,7 +5,7 @@ require 'backend/connexion.php';
 // Requête pour récupérer la dernière actualité active avec les informations de score
 $query = "
     SELECT actualite.*, score.date_match, score.score_winner, score.score_looser, 
-           club_winner.nom AS winner_name, club_looser.nom AS looser_name
+           club_winner.nom AS winner_name, club_looser.nom AS looser_name, club_winner.image AS winner_img, club_looser.image AS looser_img
     FROM actualite 
     LEFT JOIN score ON actualite.fk_score = score.id
     LEFT JOIN club AS club_winner ON score.fk_equipeWinner = club_winner.id
@@ -42,7 +42,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie">
@@ -51,18 +51,21 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item px-2">
-                        <a class="nav-link active" href="index.php">Accueil</a>
+                        <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link " href="resultat.php">Résultats</a>
+                        <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link " href="actualites.php">Actualités</a>
@@ -75,54 +78,38 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
     </nav>
 
-
-
-
-
-
-
     <!-- Header Section -->
     <div class="header pb-5">
         <div class="img-container">
-            <img src="assets/ballon.jpeg" alt="accueil">
+            <img src="assets/images/191012Olympique127.jpg" alt="accueil">
         </div>
 
         <!-- Section "Notre dernière actualité" -->
         <div class="last-actualite py-5">
-            <div class="container">
+            <div class="container text-center">
                 <h2 class="lastresult">Notre dernier résultat</h2>
                 <?php if ($lastActualite): ?>
-                    <div class="row">
-                        <?php if (!empty($lastActualite['img'])): ?>
-                            <div class="col-md-6">
-                                <img src="<?= htmlspecialchars($lastActualite['img']) ?>" alt="<?= htmlspecialchars($lastActualite['titre']) ?>" class="img-fluid">
+                    <div class="row pt-5">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <img src="<?= !empty($lastActualite['winner_img']) ? htmlspecialchars($lastActualite['winner_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($lastActualite['winner_name']); ?>" class="img-fluid" style="width: 100px;">
+                                <p><?= htmlspecialchars($lastActualite['winner_name']); ?></p>
                             </div>
-                        <?php endif; ?>
-                        <div class="<?= !empty($lastActualite['img']) ? 'col-md-6' : 'col-md-12' ?>">
-                            <h3><?= htmlspecialchars($lastActualite['titre']) ?></h3>
-                            <p><?= htmlspecialchars($lastActualite['description']) ?></p>
-                            <p><strong>Match :</strong> <?= htmlspecialchars($lastActualite['winner_name']) ?> vs <?= htmlspecialchars($lastActualite['looser_name']) ?></p>
-                            <p><strong>Score :</strong> <?= htmlspecialchars($lastActualite['score_winner']) ?> - <?= htmlspecialchars($lastActualite['score_looser']) ?></p>
-                            <p><strong>Date du match :</strong> <?= htmlspecialchars($lastActualite['date_match']) ?></p>
-                            <a href="article.php?id=<?= $lastActualite['id'] ?>" class="btn btn-primary">Lire la suite</a>
+                            <h3 class="mx-3"><?= htmlspecialchars($lastActualite['score_winner']) ?></h3>
+                            <h3 class="mx-3">-</h3>
+                            <h3 class="mx-3"><?= htmlspecialchars($lastActualite['score_looser']) ?></h3>
+                            <div class="text-center">
+                                <img src="<?= !empty($lastActualite['looser_img']) ? htmlspecialchars($lastActualite['looser_img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($lastActualite['looser_name']); ?>" class="img-fluid" style="width: 100px;">
+                                <p><?= htmlspecialchars($lastActualite['looser_name']); ?></p>
+                            </div>
                         </div>
+                        <h4 class="text-white pt-3"><?= htmlspecialchars($lastActualite['titre']) ?></h4>
                     </div>
                 <?php else: ?>
                     <p>Aucun Résultat disponible pour le moment.</p>
                 <?php endif; ?>
             </div>
         </div>
-
-        <div class="container">
-            <h2>Les Résultats des Matchs</h2>
-            <p>
-                La ligue de rugby est une association affiliée à la Fédération Française de Rugby. Elle est présente depuis 1964 et compte environ plus de 1 100 licenciés en 2023 pour une dizaine de clubs présents sur les 3 provinces.
-            </p>
-            <div class="btn-container">
-                <a href="resultat.php" class="btn btn-secondary">Voir les résultats</a>
-            </div>
-        </div>
-
     </div>
 
     <!-- Actualités Section -->
@@ -155,7 +142,6 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
                             <img src="<?= !empty($club['image']) ? htmlspecialchars($club['image']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($club['nom']); ?>">
                         </a>
                     </div>
-
                 <?php endforeach; ?>
             </div>
         </div>
@@ -168,7 +154,7 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
 
     <!-- Clubs Section with Owl Carousel -->
-    <div class="clubs py-5">
+    <div class="partenaires py-5">
         <div class="container ">
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Nos Partenaires</h2>
@@ -176,9 +162,8 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="owl-carousel owl-theme">
                 <?php foreach ($partenaires as $partenaire): ?>
                     <div class="item">
-                        <img src="<?= !empty($partenaire['img']) ? htmlspecialchars($partenaire['img']) : 'assets/clubs/default.png'; ?>" alt="<?= htmlspecialchars($partenaire['nom']); ?>">
+                        <img src="<?= !empty($partenaire['img']) ? htmlspecialchars($partenaire['img']) : 'assets/partenaires/default.png'; ?>" alt="<?= htmlspecialchars($partenaire['nom']); ?>">
                     </div>
-
                 <?php endforeach; ?>
             </div>
         </div>
