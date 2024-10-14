@@ -193,10 +193,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li>
-                            <div class="d-flex">
-                                <a href="#" class="link-light">
-                                    <img src="assets/instagram-icon.png" alt="Instagram" class="me-3" style="width:50px;">
-                                </a>
+                            <div class="d-flex">                                
                                 <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
                                     <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
                                 </a>
