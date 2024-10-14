@@ -220,3 +220,15 @@ h2
 
     }
 }
+
+.btn-leaflet{
+    background-color: #E22B39 !important;
+    border: none !important;
+    color: white !important;
+    width: 120px !important;
+}
+
+.btn-leaflet:hover{
+    background-color:#4D4D4D !important;
+    transition: background-color .3s ease-out !important;
+}

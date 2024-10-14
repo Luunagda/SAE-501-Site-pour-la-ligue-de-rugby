@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupérer les droits de l'utilisateur depuis la base de données
-$stmt = $pdo->prepare('SELECT DroitPartenaire, DroitUser, DroitScore, DroitActualite, DroitClub FROM users WHERE id = :id');
+$stmt = $pdo->prepare('SELECT DroitPartenaire, DroitUser, DroitScore, DroitActualite, DroitClub, DroitAction FROM users WHERE id = :id');
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $adresse = $_POST['adresse'] ?? '';
         $lien = $_POST['lien'] ?? '';
         $province = $_POST['province'] ?? '';
+        $president = $_POST['president'] ?? '';
+        $email = $_POST['email'] ?? '';
 
         // Gérer l'upload de l'image
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -77,8 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         }
 
         // Préparer et exécuter l'insertion des données
-        $stmt = $pdo->prepare('INSERT INTO club (nom, image, latitude, longitude, adresse, lien, province) 
-                               VALUES (:nom, :image, :latitude, :longitude, :adresse, :lien, :province)');
+        $stmt = $pdo->prepare('INSERT INTO club (nom, image, latitude, longitude, adresse, lien, province, president, email) 
+                            VALUES (:nom, :image, :latitude, :longitude, :adresse, :lien, :province, :president, :email)');
         $stmt->execute([
             'nom' => $nom,
             'image' => $image,
@@ -86,7 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'longitude' => $longitude,
             'adresse' => $adresse,
             'lien' => $lien,
-            'province' => $province
+            'province' => $province,
+            'president' => $president,
+            'email' => $email
         ]);
 
         // Rediriger après l'ajout
@@ -101,6 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $lien = $_POST['lien'] ?? '';
         $province = $_POST['province'] ?? '';
         $existing_image = $_POST['existing_image'] ?? '';
+        $president = $_POST['president'] ?? '';
+        $email = $_POST['email'] ?? '';
 
         // Gérer l'upload de l'image uniquement si un nouveau fichier est fourni
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -125,9 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 
         // Préparer et exécuter la mise à jour des données
         $stmt = $pdo->prepare('UPDATE club 
-                               SET nom = :nom, image = :image, latitude = :latitude, longitude = :longitude, 
-                                   adresse = :adresse, lien = :lien, province = :province 
-                               WHERE id = :id');
+                            SET nom = :nom, image = :image, latitude = :latitude, longitude = :longitude, 
+                                adresse = :adresse, lien = :lien, province = :province, president = :president, email = :email
+                            WHERE id = :id');
         $stmt->execute([
             'nom' => $nom,
             'image' => $image,
@@ -136,6 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             'adresse' => $adresse,
             'lien' => $lien,
             'province' => $province,
+            'president' => $president,
+            'email' => $email,
             'id' => $id
         ]);
 
@@ -320,15 +328,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Image</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Adresse</th>
-                    <th>Province</th>
-                    <th>Lien</th>
-                    <th>Actions</th>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Adresse</th>
+                <th>Province</th>
+                <th>Lien</th>
+                <th>Président</th>
+                <th>Email</th>
+                <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -343,6 +353,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                     $adresse = htmlspecialchars($row['adresse'] ?? '');
                     $province = htmlspecialchars($row['province'] ?? '');
                     $lien = htmlspecialchars($row['lien'] ?? '');
+                    $president = htmlspecialchars($row['president'] ?? '');
+                    $email = htmlspecialchars($row['email'] ?? '');
                     
                     echo '<tr>';
                     echo '<td>' . htmlspecialchars($row['id'] ?? '') . '</td>';
@@ -353,6 +365,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                     echo '<td>' . $adresse . '</td>';
                     echo '<td>' . $province . '</td>';
                     echo '<td><a href="' . $lien . '" target="_blank">' . $lien . '</a></td>';
+                    echo '<td>' . $president . '</td>';
+                    echo '<td>' . $email . '</td>';
                     echo '<td>';
                     echo '<button class="btn btn-link edit-icon" onclick="enableEditMode(' . $row['id'] . ')"><i class="bi bi-pencil"></i></button>';
                     echo '<form method="POST" action="addclub.php" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer ce club ?\');" style="display:inline-block;">';
@@ -375,6 +389,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                     echo '<td><input type="text" class="form-control" name="adresse" value="' . $adresse . '"></td>';
                     echo '<td><input type="text" class="form-control" name="province" value="' . $province . '"></td>';
                     echo '<td><input type="text" class="form-control" name="lien" value="' . $lien . '"></td>';
+                    echo '<td><input type="text" class="form-control" name="president" value="' . $president . '"></td>';
+                    echo '<td><input type="text" class="form-control" name="email" value="' . $email . '"></td>';
                     echo '<td><button type="submit" class="btn btn-success">Confirmer</button></td>';
                     echo '</form>';
                     echo '</tr>';
