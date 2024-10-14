@@ -116,16 +116,24 @@ $lastActualite = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Actualités Section -->
-    <div class="container">
-        <h2>Qui sommes-nous ?</h2>
-        <p>
-            La ligue de rugby est une association affiliée à la Fédération Française de Rugby. Elle est présente depuis 1964 et compte environ plus de 1 100 licenciés en 2023 pour une dizaine de clubs présents sur les 3 provinces.
-        </p>
-        <div class="btn-container">
-            <a href="qui-sommes-nous.html" class="btn btn-primary">En savoir +</a>
+    <div class="container qui-sommes-nous">
+        <div class="row">
+            <div class="col-sm d-flex flex-column justify-content-center">
+                <h2>Qui sommes-nous ?</h2>
+                <p>
+                    La ligue de rugby est une association affiliée à la Fédération Française de Rugby. Elle est présente depuis 1964 et compte environ plus de 1 100 licenciés en 2023 pour une dizaine de clubs présents sur les 3 provinces.
+                </p>
+                <div class="btn-container">
+                    <a href="qui-sommes-nous.html" class="btn btn-primary">En savoir +</a>
+                </div>
+            </div>
+            <div class="col-sm ">
+                <img src="assets/images/Finale-a-7-2015.JPG" class="img-qui-sommes-nous" alt="Finale à 7 2015">
+                <p>Finale du championnat à VII de 2015</p>
+            </div>
         </div>
+        
     </div>
-
     <?php
     // Requête pour récupérer les clubs
     $stmt = $pdo->query('SELECT * FROM club');
