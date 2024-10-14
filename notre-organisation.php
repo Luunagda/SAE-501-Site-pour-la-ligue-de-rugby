@@ -46,12 +46,20 @@
                         <a class="nav-link active" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="resultat.php">Résultats</a>
+                        <a class="nav-link" href="nos-actions.php">Nos actions</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
                     </li>
-                    
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="resultats.php">Résultats</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link " href="actualites.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu 🏉</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -72,7 +80,7 @@
                     <img src="assets/images/comite_directeur.png" class="comite" alt="Comité Directeur">
                 </div>
             </div>
-            
+
         </div>
 
         <div class="container">
@@ -137,20 +145,26 @@
                 </div>
             </div>
         </div>
-          
+
     </div>
 
-    
+
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
-                        <li><a href="index.html" class="link-light">Accueil</a></li>
-                        <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
-                        <li><a href="resultat.php" class="link-light">Résultats</a></li>
+                        <li><a href="index.php" class="link-light">Accueil</a></li>
+                        <li><a href="qui-sommes-nous.php" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="notre-organisation.php" class="link-light">Notre organisation</a></li>
+                        <li><a href="nos-actions.php" class="link-light">Nos actions</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li>
+                        <li><a href="resultats.php" class="link-light">Résultats</a></li>
+                        <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">

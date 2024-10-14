@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { "image": "clubs/sc.jpeg", "titre": "Association Stade Calédonien", "localité": "Nouméa" },
         { "image": "clubs/rugby-mont-dore.png", "titre": "Rugby Club de Mont Dore", "localité": "Mont-Dore" },
         { "image": "clubs/viking-988.jpeg", "titre": "Vikins 988", "localité": "Nouméa" },
-        { "image": "clubs/olympique-noumea.jpeg", "titre": "Olympique de Nouméa", "localité": "Nouméa" },
+        { "image": "clubs/olympique-noumea.png", "titre": "Olympique de Nouméa", "localité": "Nouméa" },
         { "image": "clubs/paita.jpeg", "titre": "Le Petit Train Section Rugby", "localité": "Paita" },
         { "image": "clubs/rugby-club-cal.jpeg", "titre": "Rugby Club Calédonien", "localité": "Nouméa" },
         { "image": "clubs/magenta.jpeg", "titre": "Association Sportive de Magenta", "localité": "Nouméa" },
@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { "image": "clubs/nepoui.png", "titre": "Association Omnisports Nepoui", "localité": "Poya" },
         { "image": "clubs/crevette.png", "titre": "Crevettes Musclées Nord Rugby", "localité": "Pouembout" },
         { "image": "clubs/houps.png", "titre": "Les Houps Club de Rugby de Poindimie", "localité": "Poindimie" },
-        { "image": "clubs/nengone.jpeg", "titre": "Nengone Ovalie Rugby Ensemble Saisissons l’Avenir", "localité": "Maré" }
+        { "image": "clubs/nengone.jpeg", "titre": "Nengone Ovalie Rugby Ensemble Saisissons l’Avenir", "localité": "Maré" },
+        { "image": "clubs/RCLaFoa.png", "titre": "RC La Foa", "localité": "La Foa" }
+
     ];
     const localitiesTopContainer = document.getElementById('localities-top-container');
     const localitiesBottomContainer = document.getElementById('localities-bottom-container');
