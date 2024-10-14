@@ -53,26 +53,11 @@
         </div>
     </nav>
 
-    <!-- Bloc Actualité FLUX FB -->
-    <!-- <div class="container mt-5 pt-5">
-        <div class="row" style="margin-top:5vh;">
-            <h2 class="lastresult">Notre actualité sur Facebook</h2>
-            <div class="fb-page" data-href="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/" data-tabs="timeline" data-width="500" data-height="700" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                <blockquote cite="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/">Ligue de Rugby de Nouvelle-Calédonie</a></blockquote>
-            </div>
-        </div>
-    </div> -->
-    
-    <!-- Bloc Actualité FLUX FB -->
+    <!-- Bloc Histoire Rugby -->
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center" style="margin-top:5vh;">
             <div class="col-md-8 text-center">
-                <h2 class="lastresult">Notre actualité sur Facebook</h2>
-                <div class="fb-page" data-href="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/" data-tabs="timeline" data-width="500" data-height="700" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/" class="fb-xfbml-parse-ignore">
-                        <a href="https://www.facebook.com/p/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie-100065108336676/">Ligue de Rugby de Nouvelle-Calédonie</a>
-                    </blockquote>
-                </div>
+                <h2 class="lastresult">Histoire Rugby</h2>
             </div>
         </div>
     </div>

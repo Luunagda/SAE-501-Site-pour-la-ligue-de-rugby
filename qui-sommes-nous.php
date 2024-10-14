@@ -40,13 +40,16 @@
                         <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
+                        <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="resultat.php">Résultats</a>
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link " href="actualites.php">Actualités</a>
@@ -54,7 +57,6 @@
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -147,7 +149,6 @@
                 </div>
             </div>
         </div>
-
 <script>
     // Fonction pour ouvrir la lightbox
 function openLightbox(imageSrc, captionText) {
@@ -206,14 +207,18 @@ function closeLightbox() {
             </div>
             
         </div>
+        <div class="map-container">
+            <div id="map" style="height: 500px; width: 100%;"></div>
+        </div>
+    </div>
 
-        <?php
-        // Connexion à la base de données
-        require 'backend/connexion.php'; // Assurez-vous que ce fichier contient la connexion PDO à votre base de données
+    <?php
+    // Connexion à la base de données
+    require 'backend/connexion.php'; // Assurez-vous que ce fichier contient la connexion PDO à votre base de données
 
-        // Requête pour récupérer les clubs
-        $stmt = $pdo->query('SELECT * FROM club');
-        $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Requête pour récupérer les clubs
+    $stmt = $pdo->query('SELECT * FROM club');
+    $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <!-- Clubs Section with Owl Carousel -->
@@ -237,13 +242,16 @@ function closeLightbox() {
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li>
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
                         <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
@@ -288,7 +296,7 @@ function closeLightbox() {
 
     <!-- Script pour initialiser Owl Carousel et Leaflet -->
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var owl = $('.owl-carousel');
             owl.owlCarousel({
                 loop: true,
@@ -322,14 +330,15 @@ function closeLightbox() {
             function createCustomIcon(club) {
                 return L.icon({
                     iconUrl: club.image,
-                    iconSize: [40, 40],  // Taille de l'icône
-                    iconAnchor: [25, 50],  // Point de l'icône qui sera à la position du marqueur
-                    popupAnchor: [0, -50]  // Position du popup par rapport à l'icône
+                    iconSize: [40, 40], // Taille de l'icône
+                    iconAnchor: [25, 50], // Point de l'icône qui sera à la position du marqueur
+                    popupAnchor: [0, -50] // Position du popup par rapport à l'icône
                 });
             }
 
             // Fonction pour afficher les clubs sur la carte en fonction de la province sélectionnée
             function afficherClubs(clubs, province) {
+
                 // Retirer les anciens marqueurs avant d'ajouter les nouveaux
                 map.eachLayer(function (layer) {
                     if (layer.options && layer.options.pane === "markerPane") {
@@ -338,7 +347,7 @@ function closeLightbox() {
                 });
 
                 // Ajouter les marqueurs pour les clubs de la province sélectionnée
-                clubs.forEach(function (club) {
+                clubs.forEach(function(club) {
                     if (province === "Tous" || club.province === province) {
                         // Créer le contenu du popup conditionnellement
                         let popupContent = `<b>${club.titre}</b><br>`;
@@ -382,19 +391,19 @@ function closeLightbox() {
                 url: 'backend/get_clubs.php',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data.error) {
                         console.error('Erreur:', data.error);
                     } else {
                         afficherClubs(data, "Tous");
 
-                        document.getElementById('provinceFilter').addEventListener('change', function () {
+                        document.getElementById('provinceFilter').addEventListener('change', function() {
                             var province = this.value;
                             afficherClubs(data, province);
                         });
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error('Erreur AJAX:', error);
                 }
             });

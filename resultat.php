@@ -70,7 +70,8 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .score-info {
             font-weight: bold;
-            font-size: 0.9rem; /* Réduction de la taille de la police du score */
+            font-size: 0.9rem;
+            /* Réduction de la taille de la police du score */
             margin-bottom: 10px;
         }
 
@@ -112,6 +113,9 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
@@ -120,14 +124,13 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-                    
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Contenu principal -->
-    <div class="container mt-5 pt-5" >
+    <div class="container mt-5 pt-5">
         <div class="row" style="margin-top:5vh;">
             <h1 class="text-center mb-4">Résultats</h1>
             <?php foreach ($actualites as $actualite): ?>
@@ -140,9 +143,11 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <h2 class="card-title">
                                     <?= htmlspecialchars($actualite['titre']); ?>
                                 </h2>
+                              
                                 <!-- <?php if (!empty($actualite['img'])): ?>
                                 <img src="../<?= htmlspecialchars($actualite['img']); ?>" alt="<?= htmlspecialchars($actualite['titre']); ?>" class="article-image" style="width:200px;border-radius:5px;">
                                 <?php endif; ?> -->
+
                                 <!-- Affichage du score s'il y a un score associé -->
                                 <!-- <?php if (!empty($actualite['fk_score'])): ?>
                                     <p class="score-info">
@@ -174,15 +179,18 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-<!-- Footer -->
-<footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+    <!-- Footer -->
+    <footer class="footer p-4 bg-dark text-light">
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li> 
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
                         <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
