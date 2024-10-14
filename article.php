@@ -74,6 +74,9 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link active" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
@@ -82,7 +85,7 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -115,9 +118,9 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($recent_articles as $recent): ?>
                 <a href="article.php?id=<?= $recent['id']; ?>" class="card">
                     <div class="card-body">
-                    <?php if (!empty($recent['img'])): ?>
-                        <img src="../<?= htmlspecialchars($recent['img']); ?>" alt="<?= htmlspecialchars($recent['titre']); ?>" class="article-image">
-                    <?php endif; ?>
+                        <?php if (!empty($recent['img'])): ?>
+                            <img src="../<?= htmlspecialchars($recent['img']); ?>" alt="<?= htmlspecialchars($recent['titre']); ?>" class="article-image">
+                        <?php endif; ?>
                         <h4 class="card-title"><?= htmlspecialchars($recent['titre']); ?></h4>
                         <p class="card-text"><?= htmlspecialchars(substr($recent['description'], 0, 100)) . '...'; ?></p>
                     </div>
@@ -128,13 +131,16 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li>
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
                         <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>

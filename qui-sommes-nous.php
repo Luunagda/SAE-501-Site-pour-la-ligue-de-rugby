@@ -43,6 +43,9 @@
                         <a class="nav-link active" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
+                    </li>
+                    <li class="nav-item px-2">
                         <a class="nav-link" href="resultat.php">Résultats</a>
                     </li>
                     <li class="nav-item px-2">
@@ -51,7 +54,7 @@
                     <li class="nav-item px-2">
                         <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -151,59 +154,58 @@
             </div>
         </div>
 
-<script>
-    // Fonction pour ouvrir la lightbox
-function openLightbox(imageSrc, captionText) {
-    document.getElementById("lightbox").style.display = "block";
-    document.getElementById("lightboxImage").src = imageSrc;
-    document.getElementById("caption").innerHTML = captionText;
-}
+        <script>
+            // Fonction pour ouvrir la lightbox
+            function openLightbox(imageSrc, captionText) {
+                document.getElementById("lightbox").style.display = "block";
+                document.getElementById("lightboxImage").src = imageSrc;
+                document.getElementById("caption").innerHTML = captionText;
+            }
 
-// Fonction pour fermer la lightbox
-function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
-}
+            // Fonction pour fermer la lightbox
+            function closeLightbox() {
+                document.getElementById("lightbox").style.display = "none";
+            }
+        </script>
+        <!-- Section des faits marquants -->
+        <div class="section" style="margin-top:20px;margin-bottom:5%;">
+            <h2 class="text-center mb-3">Faits marquants</h2>
+            <div class="highlight-row">
+                <!-- Structure de la Lightbox -->
+                <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                    <span class="close">&times;</span>
+                    <img class="lightbox-content" id="lightboxImage">
+                    <div id="caption"></div>
+                </div>
 
-</script>
-<!-- Section des faits marquants -->
-<div class="section" style="margin-top:20px;margin-bottom:5%;">
-    <h2 class="text-center mb-3">Faits marquants</h2>
-    <div class="highlight-row">
-        <!-- Structure de la Lightbox -->
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-            <span class="close">&times;</span>
-            <img class="lightbox-content" id="lightboxImage">
-            <div id="caption"></div>
-        </div>
+                <!-- Vos images -->
+                <div class="highlight-item" onclick="openLightbox('assets/images/couv_fb_rugby_nc.jpg', 'Participation record à la Coupe de Calédonie 2022.')">
+                    <img src="assets/images/couv_fb_rugby_nc.jpg" alt="Fait marquant 2" class="highlight-image">
+                    <p class="highlight-text">Participation record à la Coupe de Calédonie 2022.</p>
+                </div>
+                <div class="highlight-item" onclick="openLightbox('assets/images/championnat_XV.jpg', 'Victoire historique du club A lors du championnat 2021.')">
+                    <img src="assets/images/championnat_XV.jpg" alt="Fait marquant 1" class="highlight-image">
+                    <p class="highlight-text">Victoire historique du club A lors du championnat 2021.</p>
+                </div>
+                <div class="highlight-item" onclick="openLightbox('assets/images/rugby_femme_equipe_nc.jpg', 'Création du nouveau centre de formation en 2020.')">
+                    <img src="assets/images/rugby_femme_equipe_nc.jpg" alt="Fait marquant 3" class="highlight-image">
+                    <p class="highlight-text">Création du nouveau centre de formation en 2020.</p>
+                </div>
 
-        <!-- Vos images -->
-        <div class="highlight-item" onclick="openLightbox('assets/images/couv_fb_rugby_nc.jpg', 'Participation record à la Coupe de Calédonie 2022.')">
-            <img src="assets/images/couv_fb_rugby_nc.jpg" alt="Fait marquant 2" class="highlight-image">
-            <p class="highlight-text">Participation record à la Coupe de Calédonie 2022.</p>
-        </div>
-        <div class="highlight-item" onclick="openLightbox('assets/images/championnat_XV.jpg', 'Victoire historique du club A lors du championnat 2021.')">
-            <img src="assets/images/championnat_XV.jpg" alt="Fait marquant 1" class="highlight-image">
-            <p class="highlight-text">Victoire historique du club A lors du championnat 2021.</p>
-        </div>
-        <div class="highlight-item" onclick="openLightbox('assets/images/rugby_femme_equipe_nc.jpg', 'Création du nouveau centre de formation en 2020.')">
-            <img src="assets/images/rugby_femme_equipe_nc.jpg" alt="Fait marquant 3" class="highlight-image">
-            <p class="highlight-text">Création du nouveau centre de formation en 2020.</p>
-        </div>
-
-    </div>
-</div>
-            <div class="map-container">
-                <div id="map" style="height: 500px; width: 100%;"></div>
             </div>
         </div>
+        <div class="map-container">
+            <div id="map" style="height: 500px; width: 100%;"></div>
+        </div>
+    </div>
 
-        <?php
-        // Connexion à la base de données
-        require 'backend/connexion.php'; // Assurez-vous que ce fichier contient la connexion PDO à votre base de données
+    <?php
+    // Connexion à la base de données
+    require 'backend/connexion.php'; // Assurez-vous que ce fichier contient la connexion PDO à votre base de données
 
-        // Requête pour récupérer les clubs
-        $stmt = $pdo->query('SELECT * FROM club');
-        $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Requête pour récupérer les clubs
+    $stmt = $pdo->query('SELECT * FROM club');
+    $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <!-- Clubs Section with Owl Carousel -->
@@ -227,13 +229,16 @@ function closeLightbox() {
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="link-light">Accueil</a></li>
                         <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li>
                         <li><a href="resultat.php" class="link-light">Résultats</a></li>
                         <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
@@ -278,7 +283,7 @@ function closeLightbox() {
 
     <!-- Script pour initialiser Owl Carousel et Leaflet -->
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var owl = $('.owl-carousel');
             owl.owlCarousel({
                 loop: true,
@@ -312,24 +317,26 @@ function closeLightbox() {
             function createCustomIcon(club) {
                 return L.icon({
                     iconUrl: club.image,
-                    iconSize: [40, 40],  // Taille de l'icône
-                    iconAnchor: [25, 50],  // Point de l'icône qui sera à la position du marqueur
-                    popupAnchor: [0, -50]  // Position du popup par rapport à l'icône
+                    iconSize: [40, 40], // Taille de l'icône
+                    iconAnchor: [25, 50], // Point de l'icône qui sera à la position du marqueur
+                    popupAnchor: [0, -50] // Position du popup par rapport à l'icône
                 });
             }
 
             // Fonction pour afficher les clubs sur la carte en fonction de la province sélectionnée
             function afficherClubs(clubs, province) {
-                map.eachLayer(function (layer) {
+                map.eachLayer(function(layer) {
                     if (layer.options && layer.options.pane === "markerPane") {
                         map.removeLayer(layer);
                     }
                 });
 
                 // Ajouter les marqueurs pour les clubs de la province sélectionnée
-                clubs.forEach(function (club) {
+                clubs.forEach(function(club) {
                     if (province === "Tous" || club.province === province) {
-                        L.marker([club.latitude, club.longitude], { icon: createCustomIcon(club) }).addTo(map)
+                        L.marker([club.latitude, club.longitude], {
+                                icon: createCustomIcon(club)
+                            }).addTo(map)
                             .bindPopup(`<b>${club.titre}</b><br>${club.adresse}`);
                     }
                 });
@@ -340,19 +347,19 @@ function closeLightbox() {
                 url: 'backend/get_clubs.php',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data.error) {
                         console.error('Erreur:', data.error);
                     } else {
                         afficherClubs(data, "Tous");
 
-                        document.getElementById('provinceFilter').addEventListener('change', function () {
+                        document.getElementById('provinceFilter').addEventListener('change', function() {
                             var province = this.value;
                             afficherClubs(data, province);
                         });
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error('Erreur AJAX:', error);
                 }
             });
