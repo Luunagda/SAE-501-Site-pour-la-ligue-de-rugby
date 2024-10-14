@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { "image": "clubs/crec.jpeg", "titre": "Club de Rugby Educatif et Citoyen", "localité": "Nouméa" },
         { "image": "clubs/dumbea.png", "titre": "Union Rugby Club de Dumbéa", "localité": "Dumbéa" },
         { "image": "clubs/sc.jpeg", "titre": "Association Stade Calédonien", "localité": "Nouméa" },
-        { "image": "clubs/mont-dore.jpeg", "titre": "Rugby Club de Mont Dore", "localité": "Mont-Dore" },
+        { "image": "clubs/rugby-mont-dore.png", "titre": "Rugby Club de Mont Dore", "localité": "Mont-Dore" },
         { "image": "clubs/viking-988.jpeg", "titre": "Vikins 988", "localité": "Nouméa" },
         { "image": "clubs/olympique-noumea.jpeg", "titre": "Olympique de Nouméa", "localité": "Nouméa" },
         { "image": "clubs/paita.jpeg", "titre": "Le Petit Train Section Rugby", "localité": "Paita" },
@@ -40,6 +40,76 @@ document.addEventListener('DOMContentLoaded', () => {
     let groupedByLocality = {}; // Stocker les localités groupées
     let isPaused = false; // Indicateur de pause
 
+    let selectedClub = null; // Pour stocker le club sélectionné
+
+    // Fonction pour gérer le premier toucher (sélection du club)
+    function handleClubTouch(event) {
+        if (isPaused) return;
+
+        // Récupérer l'élément du club touché
+        let target = event.target;
+        while (!target.classList.contains('club')) {
+            target = target.parentElement;
+        }
+
+        // Si un club est déjà sélectionné, on le désélectionne
+        if (selectedClub) {
+            selectedClub.classList.remove('selected');
+        }
+
+        // Marquer ce club comme sélectionné
+        selectedClub = target;
+        selectedClub.classList.add('selected'); // Ajouter une classe CSS pour indiquer la sélection
+    }
+
+    // Fonction pour gérer le second toucher (sélection de la localité)
+    function handleLocalityTouch(event) {
+        if (isPaused || !selectedClub) return; // Si aucun club n'est sélectionné, on ne fait rien
+
+        let target = event.target;
+        while (!target.classList.contains('locality')) {
+            target = target.parentElement;
+        }
+
+        const localityName = target.dataset.locality;
+        const clubId = selectedClub.dataset.club;
+
+        // Vérifier si le club sélectionné correspond à la localité
+        const clubMatchesLocality = groupedByLocality[localityName].some(club => club.titre === clubId);
+
+        if (clubMatchesLocality) {
+            target.classList.add('success');
+            target.classList.remove('failure');
+            selectedClub.style.display = 'none'; // Masquer le club une fois qu'il est correctement associé
+            onClubMatched();
+        } else {
+            target.classList.add('failure');
+            setTimeout(() => {
+                target.classList.remove('failure');
+            }, 1000);
+        }
+
+        // Désélectionner le club après le match
+        selectedClub.classList.remove('selected');
+        selectedClub = null;
+    }
+
+    // Initialiser la logique de toucher pour sélectionner les clubs et les localités
+    function initTouchForTouchScreens() {
+        const clubs = document.querySelectorAll('.club');
+        const localitiesElements = document.querySelectorAll('.locality');
+
+        // Ajouter un événement de toucher pour sélectionner un club
+        clubs.forEach(club => {
+            club.addEventListener('touchstart', handleClubTouch, { passive: true });
+        });
+
+        // Ajouter un événement de toucher pour sélectionner une localité
+        localitiesElements.forEach(locality => {
+            locality.addEventListener('touchstart', handleLocalityTouch, { passive: true });
+        });
+    }
+
     // Initialisation du jeu
     function initGame() {
         // Mélanger l'ordre des clubs de manière aléatoire
@@ -61,8 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Diviser les localités en deux groupes
         const localities = Object.keys(groupedByLocality);
-        const topLocalities = localities.slice(0, 5);
-        const bottomLocalities = localities.slice(-5);
+
+        // Mélanger les localités de manière aléatoire
+        localities.sort(() => Math.random() - 0.5);
+
+        // const topLocalities = localities.slice(0, 5);
+        // const bottomLocalities = localities.slice(-5);
+
+        // Diviser les localités en deux groupes après mélange
+        const topLocalities = localities.slice(0, Math.ceil(localities.length / 2));
+        const bottomLocalities = localities.slice(Math.ceil(localities.length / 2));
 
         // Générer les éléments HTML pour les localités en haut et en bas
         topLocalities.forEach(locality => createLocalityElement(locality, localitiesTopContainer));
@@ -73,6 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Logique de glisser-déposer
         initDragAndDrop();
+
+        // Logique de glisser-déposer
+        initDragAndDrop();
+
+        // Initialiser la gestion des interactions tactiles
+        initTouchForTouchScreens();
     }
 
     // Fonction pour créer un élément de localité
