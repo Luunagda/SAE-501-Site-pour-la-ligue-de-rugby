@@ -12,6 +12,7 @@
     <!-- Vos CSS personnalisés -->
     <!-- <link rel="stylesheet" href="style/index.css"> -->
     <link rel="stylesheet" href="style/css.css">
+    <link rel="stylesheet" href="style/qui-sommes-nous.css">
     <link rel="stylesheet" href="style/footer.css">
     <link rel="stylesheet" href="style/navbar.css">
 </head>
@@ -60,10 +61,51 @@
     </nav>
 
     <!-- Bloc Histoire Rugby -->
-    <div class="container mt-5 pt-5">
-        <div class="row justify-content-center" style="margin-top:5vh;">
-            <div class="col-md-8 text-center">
-                <h2 class="lastresult">Histoire Rugby</h2>
+    <div class="container pb-5">
+        <!-- Jumbotron Histoire Rugby -->
+        <div class="jumbotron p-0 text-white rounded-0 bg-dark position-relative">
+            <img src="assets/images/equipes_rugby_nc_vintage.png" alt="rugby_equipe_nc_vintage Image" class="img-fluid w-100">
+            <div class="overlay d-flex align-items-center justify-content-center">
+                <h1 class="display-4">Histoire Rugby</h1>
+            </div>
+        </div>
+
+        <!-- Petite histoire du Rugby -->
+        <div class="section  py-5">
+            <h2 class="text-left mb-3">Petite histoire du Rugby</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="assets/images/illustration-soule.png" alt="illustration-soule " class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        Le rugby est un jeu d'affrontement qui contrairement à l'idée la plus répandue, n'a pas été inventé par les anglais !<br>
+                        Sans remonter à l'antiquité, durant l'époque médiévale on trouve trace de nombreux jeux de balles extrêmement virils où l'on joue à se battre.<br>
+                        Le jeu de la soule dans l'ouest de la France, de la barette dans le sud et le calcio en Italie. Ancêtre du rugby, la soule était un jeu collectif. <br>
+                        Bien qu'elle fût pratiquée, à partir du XIIe siècle en France, par les nobles et même par les religieux, voire par les rois, elle demeura un jeu du peuple, opposant souvent deux paroisses et de nombreux joueurs, parfois plus de mille ... <br>
+                    </p>
+                    <p>
+                        A l'origine la " soule " était une boule, soit en bois, soit en cuir, remplie de foin, de son ou même gonflée d'air. Les règles étaient quasiment inexistantes ; on jouait dans les rues des villes, dans les champs et parfois plusieurs jours de suite. Ce sont les jeunes gens des couches aisées de la population anglaise qui vont reprendre la pratique des jeux anciens et la codifier.<br>
+                        Afin de réduire les excès de ce jeu dangereux,; on interdit de s'en prendre aux joueurs qui ne possèdent pas le ballon, ce qui va créer le hors-jeu.
+                        Et surtout on permet de prendre de ballon avec les mains ; combinant ainsi un jeu de balle et le contact avec l'adversaire.
+                        Bien entendu c'est le célèbre William Web Ellis qui en novembre 1823, aurait attrapé le ballon avec les mains et fait naître le rugby
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- En Nouvelle-Calédonie -->
+        <div class="section py-5">
+            <h2>En Nouvelle-Calédonie</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        La ligue de rugby a été officiellement créée en 1964… <br>
+                        Mais dès 1957 une poignée de dirigeants avaient jeté les bases de ce qui allait devenir le premier comité territorial de rugby…
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="assets/images/ballon_rugby_ensemble.jpg" alt="Nos valeurs" class="img-fluid">
+                </div>
             </div>
         </div>
     </div>
@@ -97,7 +139,7 @@
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li>
-                            <div class="d-flex">                                
+                            <div class="d-flex">
                                 <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
                                     <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
                                 </a>

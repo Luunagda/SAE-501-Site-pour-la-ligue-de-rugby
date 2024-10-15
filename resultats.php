@@ -12,7 +12,7 @@ $stmt = $pdo->query('
     LEFT JOIN club cw ON s.fk_equipeWinner = cw.id
     LEFT JOIN club cl ON s.fk_equipeLooser = cl.id
     WHERE a.active = 1
-    ORDER BY a.id DESC
+    ORDER BY a.id
 ');
 $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
