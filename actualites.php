@@ -52,7 +52,7 @@
                         <a class="nav-link active" href="actualites.php">Actualités</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu 🏉</a>
+                        <a class="nav-link" href="phaser/jeu.php" target="_blank">Jeu 🏉</a>
                     </li>
                 </ul>
             </div>
@@ -112,7 +112,7 @@
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
                         <li>
-                            <div class="d-flex">                                
+                            <div class="d-flex">
                                 <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
                                     <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
                                 </a>

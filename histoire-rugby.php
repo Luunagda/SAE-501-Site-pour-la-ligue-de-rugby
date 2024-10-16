@@ -53,7 +53,7 @@
                         <a class="nav-link " href="actualites.php">Actualités</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu 🏉</a>
+                        <a class="nav-link" href="phaser/jeu.php" target="_blank">Jeu 🏉</a>
                     </li>
                 </ul>
             </div>
@@ -86,7 +86,7 @@
                     </p>
                     <p>
                         A l'origine la " soule " était une boule, soit en bois, soit en cuir, remplie de foin, de son ou même gonflée d'air. Les règles étaient quasiment inexistantes ; on jouait dans les rues des villes, dans les champs et parfois plusieurs jours de suite. Ce sont les jeunes gens des couches aisées de la population anglaise qui vont reprendre la pratique des jeux anciens et la codifier.<br>
-                        Afin de réduire les excès de ce jeu dangereux,; on interdit de s'en prendre aux joueurs qui ne possèdent pas le ballon, ce qui va créer le hors-jeu.
+                        Afin de réduire les excès de ce jeu dangereux on interdit de s'en prendre aux joueurs qui ne possèdent pas le ballon, ce qui va créer le hors-jeu.
                         Et surtout on permet de prendre de ballon avec les mains ; combinant ainsi un jeu de balle et le contact avec l'adversaire.
                         Bien entendu c'est le célèbre William Web Ellis qui en novembre 1823, aurait attrapé le ballon avec les mains et fait naître le rugby
                     </p>
@@ -99,8 +99,8 @@
             <div class="row">
                 <div class="col-md-8">
                     <p>
-                        La ligue de rugby a été officiellement créée en 1964… <br>
-                        Mais dès 1957 une poignée de dirigeants avaient jeté les bases de ce qui allait devenir le premier comité territorial de rugby…
+                        La ligue de rugby a été officiellement créée en 1964. <br>
+                        Mais dès 1957 une poignée de dirigeants avaient jeté les bases de ce qui allait devenir le premier comité territorial de rugby.
                     </p>
                 </div>
                 <div class="col-md-4 text-center">
