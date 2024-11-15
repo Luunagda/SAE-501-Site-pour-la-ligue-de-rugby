@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require 'connexion.php';
+require 'connexion.php'; // Assurez-vous que ce fichier établit une connexion à la base de données
 
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Récupérer les droits de l'utilisateur depuis la base de données
-$stmt = $pdo->prepare('SELECT DroitClub, DroitUser, DroitActualite, DroitScore, DroitPartenaire FROM users WHERE id = :id');
+$stmt = $pdo->prepare('SELECT DroitClub, DroitUser, DroitActualite, DroitScore, DroitPartenaire, DroitAction FROM users WHERE id = :id');
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -89,6 +89,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                             <a class="nav-link" href="addpartenaire.php">Gestion des Partenaires</a>
                         </li>
                     <?php endif; ?>
+                    <?php if ($user['DroitAction'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addaction.php">Gestion des Actions</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item">
@@ -161,6 +166,18 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                         <h5 class="card-title">Gestion des Partenaires</h5>
                         <p class="card-text">Gérez les partenaires de la ligue.</p>
                         <a href="addpartenaire.php" class="btn btn-primary">Gérer les Partenaires</a>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($user['DroitAction'] == 1): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestion des Actions</h5>
+                        <p class="card-text">Gérez les actions de la ligue.</p>
+                        <a href="addaction.php" class="btn btn-primary">Gérer les Actions</a>
                     </div>
                 </div>
             </div>

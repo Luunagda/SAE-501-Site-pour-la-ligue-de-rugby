@@ -57,7 +57,7 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-sm shadow-lg">
+    <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo.jpeg" width="70" alt="Logo de la ligue de rugby de Nouvelle-Calédonie.">
@@ -74,15 +74,24 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="qui-sommes-nous.php">Qui sommes-nous ?</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" href="resultat.php">Résultats</a>
+                        <a class="nav-link" href="notre-organisation.php">Notre organisation</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link " href="actualites.php">Actualités</a>
+                        <a class="nav-link" href="nos-actions.php">Nos actions</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="phaser/jeu.html" target="_blank">Jeu</a>
+                        <a class="nav-link" href="histoire-rugby.php">Histoire Rugby</a>
                     </li>
-                    
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" href="resultats.php">Résultats</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="actualites.php">Actualités</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="phaser/jeu.php" target="_blank">Jeu 🏉</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -115,9 +124,9 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($recent_articles as $recent): ?>
                 <a href="article.php?id=<?= $recent['id']; ?>" class="card">
                     <div class="card-body">
-                    <?php if (!empty($recent['img'])): ?>
-                        <img src="../<?= htmlspecialchars($recent['img']); ?>" alt="<?= htmlspecialchars($recent['titre']); ?>" class="article-image">
-                    <?php endif; ?>
+                        <?php if (!empty($recent['img'])): ?>
+                            <img src="../<?= htmlspecialchars($recent['img']); ?>" alt="<?= htmlspecialchars($recent['titre']); ?>" class="article-image">
+                        <?php endif; ?>
                         <h4 class="card-title"><?= htmlspecialchars($recent['titre']); ?></h4>
                         <p class="card-text"><?= htmlspecialchars(substr($recent['description'], 0, 100)) . '...'; ?></p>
                     </div>
@@ -128,14 +137,19 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Footer -->
     <footer class="footer p-4 bg-dark text-light">
-        <a href="backend/login.php" style="text-decoration:none;color:black;"><p>@</p></a>
+        <a href="backend/login.php" style="text-decoration:none;color:black;">
+            <p>@</p>
+        </a>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <ul class="list-unstyled">
-                        <li><a href="index.html" class="link-light">Accueil</a></li>
-                        <li><a href="qui-sommes-nous.html" class="link-light">Qui sommes-nous ?</a></li>
-                        <li><a href="resultat.php" class="link-light">Résultats</a></li>
+                        <li><a href="index.php" class="link-light">Accueil</a></li>
+                        <li><a href="qui-sommes-nous.php" class="link-light">Qui sommes-nous ?</a></li>
+                        <li><a href="notre-organisation.php" class="link-light">Notre organisation</a></li>
+                        <li><a href="nos-actions.php" class="link-light">Nos actions</a></li>
+                        <li><a href="histoire-rugby.php" class="link-light">Histoire Rugby</a></li>
+                        <li><a href="resultats.php" class="link-light">Résultats</a></li>
                         <li><a href="actualites.php" class="link-light">Actualités</a></li>
                     </ul>
                 </div>
@@ -150,9 +164,6 @@ $recent_articles = $stmt_recent->fetchAll(PDO::FETCH_ASSOC);
                     <ul class="list-unstyled">
                         <li>
                             <div class="d-flex">
-                                <a href="#" class="link-light">
-                                    <img src="assets/instagram-icon.png" alt="Instagram" class="me-3" style="width:50px;">
-                                </a>
                                 <a href="https://www.facebook.com/people/Ligue-de-Rugby-de-Nouvelle-Cal%C3%A9donie/100065108336676/" class="link-light">
                                     <img src="assets/facebook-icon.png" alt="Facebook" style="width:30px;">
                                 </a>

@@ -3,10 +3,13 @@
     height: 500px;
 }
 
-.header, .clubs{
+.header, .partenaires{
     background-color: #fff;
 }
-
+.clubs{
+    background-color: #a52d37;
+    color: #fff;
+}
 .actu{
     background-color: #EBEBEB;
 }
@@ -115,3 +118,6 @@
 
 }
 
+.img-qui-sommes-nous{
+    width: 100%;
+}
